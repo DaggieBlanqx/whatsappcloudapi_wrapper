@@ -3,23 +3,25 @@ const unirest = require('unirest');
 const signale = require('signale');
 
 class WhatsappCloud {
-    constructor({ accessToken, graphAPIVersion,senderPhoneNumberId }) {
+    constructor({ accessToken, graphAPIVersion, senderPhoneNumberId }) {
         this.accessToken = accessToken;
         this.graphAPIVersion = graphAPIVersion || 'v13.0';
         this.senderPhoneNumberId = senderPhoneNumberId;
-        this.baseUrl = `https://graph.facebook.com/${this.graphAPIVersion}/${this.senderPhoneNumberId}`
+        this.baseUrl = `https://graph.facebook.com/${this.graphAPIVersion}/${this.senderPhoneNumberId}`;
 
         if (!this.accessToken) {
             throw new Error('Missing "accessToken"');
-        };
-        
-        if(!this.senderPhoneNumberId) {
-            throw new Error('Missing "senderPhoneNumberId".');
-        };
+        }
 
-        if(graphAPIVersion){
-            signale.warn(`Please note, the default "graphAPIVersion" is v13.0. You are using ${graphAPIVersion}. This may result in quirky behavior.`);
-        };
+        if (!this.senderPhoneNumberId) {
+            throw new Error('Missing "senderPhoneNumberId".');
+        }
+
+        if (graphAPIVersion) {
+            signale.warn(
+                `Please note, the default "graphAPIVersion" is v13.0. You are using ${graphAPIVersion}. This may result in quirky behavior.`
+            );
+        }
 
         this.fetchAssistant = ({ url, method, headers, body }) => {
             return new Promise((resolve, reject) => {
@@ -30,9 +32,7 @@ class WhatsappCloud {
                         Accept: 'application/json',
                     };
                     if (this.accessToken) {
-                        output[
-                            'Authorization'
-                        ] = `Bearer ${this.accessToken}`;
+                        output['Authorization'] = `Bearer ${this.accessToken}`;
                     }
                     return output;
                 };
@@ -41,7 +41,7 @@ class WhatsappCloud {
 
                 if (!url) {
                     throw new Error('"url" is required in making a request');
-                };
+                }
 
                 if (!method) {
                     signale.warn(
@@ -52,7 +52,7 @@ class WhatsappCloud {
                 if (!headers) {
                     signale.warn(`WARNING: "headers" is missing.`);
                 }
- 
+
                 if (method?.toUpperCase() === 'POST' && !body) {
                     signale.warn(
                         `WARNING: "body" is missing. The default body will default to ${JSON.stringify(
@@ -148,9 +148,10 @@ class WhatsappCloud {
         });
 
         console.log({
-            message, recipientNumber,
+            message,
+            recipientNumber,
             response,
-        })
+        });
 
         return response;
     }
@@ -174,9 +175,9 @@ class WhatsappCloud {
             body: {
                 messaging_product: 'whatsapp',
                 to: recipientNumber,
-                
-            type: 'contacts',
-            contacts: []
+
+                type: 'contacts',
+                contacts: [],
             },
         });
 
@@ -204,7 +205,7 @@ class WhatsappCloud {
  * whatsapp.sendText({
  *     message: "Hello World",
  *    recipientNumber: "551198989898"
- * }) 
+ * })
  * **/
 
 module.exports = WhatsappCloud;

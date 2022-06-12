@@ -12,5 +12,35 @@
     "dependencies": {
         "signale": "^1.4.0",
         "unirest": "^0.6.0"
+    },
+    "keywords": [
+        "whatsapp",
+        "chatbot",
+        "bot-framework",
+        "cloud-api",
+        "whatsapp-cloud-api",
+        "whatsapp-api",
+        "business-api",
+        "cloud",
+        "api",
+        "whatsapp-cloud",
+        "whatsapp-bot",
+        "bot",
+        "whatsapp-business",
+        "whatsapp-business-api",
+        "meta",
+        "graph api",
+        "unofficial"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/daggieblanqx/whatsappcloudapi_wrapper.git"
+    },
+    "bugs": {
+        "url": "https://github.com/daggieblanqx/whatsappcloudapi_wrapper/issues"
+    },
+    "homepage": "https://github.com/daggieblanqx/whatsappcloudapi_wrapper#readme",
+    "engines": {
+        "node": ">=10"
     }
 }
