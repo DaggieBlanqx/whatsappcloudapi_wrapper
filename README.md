@@ -11,7 +11,10 @@
 
 ### Installation:
 
-- To install this package in your project, run `npm install whatsappcloudapi_wrapper` or `yarn add whatsappcloudapi_wrapper`.
+- To install this package in your project, run 
+    ```js 
+        npm install whatsappcloudapi_wrapper
+    ```
 
 ### Usage:
 
