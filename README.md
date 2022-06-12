@@ -1,10 +1,8 @@
 # whatsappcloudapi_wrapper
 
-### Please note: This package is an unofficial NodeJS wrapper around the official WhatsApp Cloud API.
-
-
 ### Frequently Asked Questions:
 - What is WhatsApp Cloud API?  [Watch this 60seconds video](https://www.youtube.com/watch?v=LaHnC7emQNM) during the launch Whatsapp Cloud API.
+- Is this package unofficial?  Yes, this package is an unofficial and *open-source* NodeJS wrapper around the official WhatsApp Cloud API.
 - Why is this package useful? Because it allows you to use the WhatsApp Cloud API without having to write a lot of code.
 - Can I use this package in my project? Yes, you can use it however you want.
 - Can I contribute to this package? Yes, you can contribute to this package by creating a pull request.
