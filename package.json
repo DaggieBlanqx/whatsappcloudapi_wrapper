@@ -7,7 +7,8 @@
     "license": "MIT",
     "scripts": {
         "prettier": "prettier --ignore-path .prettierignore --config prettier.config.js --write .",
-        "quickpush": "cls && git status && git add * && git commit * -m \"Updated Code\" && git push"
+        "quickpush": "cls && git status && git add * && git commit * -m \"Updated Code\" && git push",
+        "npmpublish": "npm run prettier && np"
     },
     "dependencies": {
         "signale": "^1.4.0",
