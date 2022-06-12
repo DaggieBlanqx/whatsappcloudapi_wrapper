@@ -26,7 +26,7 @@
 
     ```js
     const WhatsappCloudAPI = require('whatsappcloudapi_wrapper');
-    const whatsapp = new WhatsappCloudAPI({
+    const Whatsapp = new WhatsappCloudAPI({
         accessToken: 'Your access token here',
         senderPhoneNumberId: 'Your sender phone number id here',
     });
@@ -35,7 +35,7 @@
 -   Send a free-formatted text message to a recipient:
 
     ```js
-    whatsapp.sendText({
+    Whatsapp.sendText({
         message: `Hello world`,
         recipientNumber: 'your recipient phone number here',
     });
