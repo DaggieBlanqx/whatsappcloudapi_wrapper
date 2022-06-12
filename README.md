@@ -1,5 +1,11 @@
 # whatsappcloudapi_wrapper
 
+[![npm publish](https://github.com/daggieblanqx/whatsappcloudapi_wrapper/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/daggieblanqx/whatsappcloudapi_wrapper/actions/workflows/npm-publish.yml)
+![npm](https://img.shields.io/npm/v/whatsappcloudapi_wrapper)
+![npm bundle size](https://img.shields.io/bundlephobia/min/whatsappcloudapi_wrapper)
+![npm](https://img.shields.io/npm/dw/whatsappcloudapi_wrapper)
+
+
 ### Frequently Asked Questions:
 
 -   What is WhatsApp Cloud API? [Watch this 60seconds video](https://www.youtube.com/watch?v=LaHnC7emQNM) during the launch Whatsapp Cloud API.
