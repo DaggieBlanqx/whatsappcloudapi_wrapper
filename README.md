@@ -45,5 +45,5 @@
 -   Parse incoming messages:
 
     ```js
-    Whatsapp.parseMessages(req.body);
+    Whatsapp.parseMessage(req.body);
     ```

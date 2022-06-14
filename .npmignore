@@ -118,3 +118,5 @@ package-lock.json
 .test.js
 .index.js
 .errors
+.samples.js
+.samples.js.txt
