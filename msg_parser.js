@@ -14,6 +14,13 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
         );
     }
 
+    let WABA_ID = input.entry[0]?.id;
+    console.log({ WABA_ID });
+    if (WABA_ID == 0) {
+        throw new Error(
+            `WABA_ID is 0. You seem to be testing with Meta test subscription. This is not really a valid WABA_ID. I recommend you to send an actual message from an actual whatsapp customer's number.`
+        );
+    }
     //first check if the message is a whatsapp message
     if (!input.object || input.object !== 'whatsapp_business_account') {
         throw new Error(
@@ -65,8 +72,6 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
             isNotificationMessage = false;
         }
     }
-
-    let WABA_ID = input.entry[0].id;
 
     let finalType;
     if (actualType === 'text' && message.referral) {
