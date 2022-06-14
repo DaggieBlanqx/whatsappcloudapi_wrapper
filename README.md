@@ -41,3 +41,9 @@
         recipientNumber: 'your recipient phone number here',
     });
     ```
+
+-   Parse incoming messages:
+
+    ```js
+    Whatsapp.parseMessages(req.body);
+    ```
