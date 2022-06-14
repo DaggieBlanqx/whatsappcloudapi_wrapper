@@ -2,12 +2,20 @@
 const unirest = require('unirest');
 const signale = require('signale');
 
+const messageParser = require('./msg_parser.js');
+
 class WhatsappCloud {
-    constructor({ accessToken, graphAPIVersion, senderPhoneNumberId }) {
+    constructor({
+        accessToken,
+        graphAPIVersion,
+        senderPhoneNumberId,
+        WABA_ID,
+    }) {
         this.accessToken = accessToken;
         this.graphAPIVersion = graphAPIVersion || 'v13.0';
         this.senderPhoneNumberId = senderPhoneNumberId;
         this.baseUrl = `https://graph.facebook.com/${this.graphAPIVersion}/${this.senderPhoneNumberId}`;
+        this.WABA_ID = WABA_ID;
 
         if (!this.accessToken) {
             throw new Error('Missing "accessToken"');
@@ -195,6 +203,10 @@ class WhatsappCloud {
     async getUserProfilePicture({ recipientNumber }) {}
 
     async getUserStatusPicture({ recipientNumber }) {}
+
+    parseMessage(requestBody) {
+        return messageParser({ requestBody, currentWABA_ID: this.WABA_ID });
+    }
 }
 
 /**

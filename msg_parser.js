@@ -1,9 +1,17 @@
 'use strict';
 
-const messageParser = (input) => {
+module.exports = ({ requestBody, currentWABA_ID }) => {
+    let input = requestBody;
+
     // THIS FUNCTION IS NOT YET OPTIMIZED FOR PERFORMANCE. IT IS ONLY MADE AS A TEMPORARY SOLUTION.
     if (!input) {
         throw new Error('requestBody is required');
+    }
+
+    if (!currentWABA_ID) {
+        throw new Error(
+            'currentWABA_ID is required. This is the business ID that you have configured in your WABA account.'
+        );
     }
 
     //first check if the message is a whatsapp message
@@ -89,6 +97,12 @@ const messageParser = (input) => {
         finalType = 'unknownMessage';
     }
 
+    if (!WABA_ID || WABA_ID !== currentWABA_ID) {
+        throw new Error(
+            'WABA_ID is not valid. Hint: the message is not intended for this Whatsapp Business Account.'
+        );
+    }
+
     let output = {
         WABA_ID,
         isNotificationMessage,
@@ -100,6 +114,4 @@ const messageParser = (input) => {
     };
 
     return output;
-}; 
-
-module.exports = messageParser;
+};

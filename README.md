@@ -3,6 +3,7 @@
 ![npm](https://img.shields.io/npm/v/whatsappcloudapi_wrapper)
 
 <!-- ![npm bundle size](https://img.shields.io/bundlephobia/min/whatsappcloudapi_wrapper) -->
+
 ![npm](https://img.shields.io/npm/dw/whatsappcloudapi_wrapper)
 
 ### Frequently Asked Questions:
