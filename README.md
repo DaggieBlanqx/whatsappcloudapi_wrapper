@@ -32,6 +32,11 @@
 
     ```js
     const WhatsappCloudAPI = require('whatsappcloudapi_wrapper');
+    ```
+
+-   Then initialize the class as follows:
+
+    ```js
     const Whatsapp = new WhatsappCloudAPI({
         accessToken: 'Your access token here',
         senderPhoneNumberId: 'Your sender phone number id here',
