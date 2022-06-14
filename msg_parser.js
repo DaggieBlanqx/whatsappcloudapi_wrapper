@@ -14,8 +14,7 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
         );
     }
 
-    let WABA_ID = input.entry[0]?.id;
-    console.log({ WABA_ID });
+    let WABA_ID = input.entry[0]?.id; // extract the business ID from the webhook payload
     if (WABA_ID == 0) {
         throw new Error(
             `WABA_ID is 0. You seem to be testing with Meta test subscription. This is not really a valid WABA_ID. I recommend you to send an actual message from an actual whatsapp customer's number.`

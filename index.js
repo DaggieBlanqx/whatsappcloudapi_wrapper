@@ -121,6 +121,22 @@ class WhatsappCloud {
         };
     }
 
+    async createQRCodeMessage() {
+        //   curl -X POST "https://graph.facebook.com/v14.0/{phone-number-ID}/
+        //   ?prefilled_message={message-text}
+        //   &generate_qr_image={image-format}
+        //   &access_token={user-access-token}"
+
+        this.mustHaveMessage(message);
+        let response = await this.fetchAssistant({
+            url: `/message_qrdls?access_token=${this.accessToken}&prefilled_message=${message}&generate_qr_image=png`,
+            method: 'POST',
+            body: {},
+        });
+
+        return response;
+    }
+
     async PENDING_TESTS_sendText({ message, recipientNumber }) {
         let response = await this.fetchAssistant({
             url: '/messages',
