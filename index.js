@@ -155,12 +155,6 @@ class WhatsappCloud {
             },
         });
 
-        console.log({
-            message,
-            recipientNumber,
-            response,
-        });
-
         return response;
     }
 
