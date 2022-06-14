@@ -28,7 +28,7 @@
 
 ### Usage:
 
--   First import the package initialize the class as follows:
+-   First import the package as follows:
 
     ```js
     const WhatsappCloudAPI = require('whatsappcloudapi_wrapper');
