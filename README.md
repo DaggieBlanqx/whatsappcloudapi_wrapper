@@ -30,6 +30,7 @@
     const Whatsapp = new WhatsappCloudAPI({
         accessToken: 'Your access token here',
         senderPhoneNumberId: 'Your sender phone number id here',
+        WABA_ID: 'Your Whatsapp Business Account id here',
     });
     ```
 
