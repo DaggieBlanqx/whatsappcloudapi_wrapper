@@ -182,6 +182,21 @@
     });
     ```
 
+-   Generate a QR code which can be scanned by a recipient:
+    ```js
+    let result = await Whatsapp.createQRCodeMessage({
+            message: `Your QR code message here. I am a message hidden in a QR code.`,
+        });
+
+    let urlOfImage = result.data.qr_image_url;
+    ```
+    Example of how to display the QR code: <br/>
+    <img src="./static_files/XEIDF3D5FTBDF1.png"
+     alt="Markdown Monster icon"
+     style="height:250px;width:250px" />
+    <br/>
+    
+
 -   Parse incoming messages:
 
     ```js
