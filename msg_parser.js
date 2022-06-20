@@ -98,6 +98,7 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
         message.interactive.type === 'list_reply'
     ) {
         msgType = 'listMessage';
+        message['list_reply'] = message.interactive.list_reply;
     } else if (
         actualType === 'interactive' &&
         message.interactive.type === 'button_reply'
