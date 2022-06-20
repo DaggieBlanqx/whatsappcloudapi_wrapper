@@ -1,6 +1,6 @@
 {
     "name": "whatsappcloudapi_wrapper",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "An unofficial wrapper for Whatsapp Cloud API. It is written in NodeJS.",
     "main": "index.js",
     "author": "Daggie Blanqx",
