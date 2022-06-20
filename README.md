@@ -190,8 +190,8 @@
 -   The title of the list must be between 1 and 24 characters long.
 -   The id of the list must be between 1 and 200 characters long.
 
-# Final thoughts:
 
+### Notes:
 -   This package is in active development.
 -   This means new features are added regularly.
 -   Incase your favorite feature is missing, you can always bump a version backwards or create a pull request which will be reviewed and merged into the next release.
