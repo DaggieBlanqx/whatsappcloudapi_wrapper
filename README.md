@@ -53,6 +53,10 @@
     });
     ```
 
+    > Quick Question: How does a recipient phone number look like?
+ 
+    > Answer: A recipient phone number is the international phone number of the recipient without the '+' prefix. For example, where a Kenyan phone number is '+254712345678' we would send the message to '254712345678'. For a US phone number +15550253483 we would send the message to 15550253483. For a US phone number +1 555-555-5555 we would send the message to 5555555555. Makes sense?
+
 -   Send a Geo-location message to a recipient:
 
     ```js
