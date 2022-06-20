@@ -9,9 +9,15 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
     }
 
     if (!currentWABA_ID) {
-        throw new Error(
-            'currentWABA_ID is required. This is the business ID that you have configured in your WABA account.'
-        );
+        // throw new Error(
+        //     'currentWABA_ID is required. This is the business ID that you have configured in your WABA account.'
+        // );
+
+        // Warn instead of throw error.
+        signale.warn({
+            message:
+                'currentWABA_ID is required. This is the business ID that you have configured in your WABA account.',
+        });
     }
 
     let WABA_ID = input.entry[0]?.id; // extract the business ID from the webhook payload
@@ -72,33 +78,34 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
         }
     }
 
-    let finalType;
+    let msgType;
     if (actualType === 'text' && message.referral) {
-        finalType = 'adMessage';
+        msgType = 'adMessage';
     } else if (actualType === 'text') {
-        finalType = 'textMessage';
+        msgType = 'textMessage';
     } else if (actualType === 'sticker') {
-        finalType = 'stickerMessage';
+        msgType = 'stickerMessage';
     } else if (actualType === 'image') {
-        finalType = 'mediaMessage';
+        msgType = 'mediaMessage';
     } else if (actualType === 'location') {
-        finalType = 'locationMessage';
+        msgType = 'locationMessage';
     } else if (actualType === 'contact') {
-        finalType = 'contactMessage';
+        msgType = 'contactMessage';
     } else if (actualType === 'button') {
-        finalType = 'quickReplyMessage';
+        msgType = 'quickReplyMessage';
     } else if (
         actualType === 'interactive' &&
         message.interactive.type === 'list_reply'
     ) {
-        finalType = 'listMessage';
+        msgType = 'listMessage';
     } else if (
         actualType === 'interactive' &&
         message.interactive.type === 'button_reply'
     ) {
-        finalType = 'replyButtonMessage';
+        msgType = 'replyButtonMessage';
+        message['button_reply'] = message.interactive.button_reply;
     } else if (actualType === 'unsupported') {
-        finalType = 'unknownMessage';
+        msgType = 'unknownMessage';
     }
 
     if (!WABA_ID || WABA_ID !== currentWABA_ID) {
@@ -111,7 +118,7 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
         WABA_ID,
         isNotificationMessage,
         actualType,
-        finalType,
+        msgType,
         metadata,
         contacts,
         message,
