@@ -127,9 +127,9 @@ class WhatsappCloud {
             }
         };
 
-        this._uploadMedia = async ({ filePath }) => {
+        this._uploadMedia = async ({ file_path, file_name }) => {
             return new Promise((resolve, reject) => {
-                const mediaFile = fs.createReadStream(filePath);
+                const mediaFile = fs.createReadStream(file_path);
 
                 unirest(
                     'POST',
@@ -150,6 +150,7 @@ class WhatsappCloud {
                             resolve({
                                 status: 'success',
                                 media_id: response.id,
+                                file_name: file_name || null,
                             });
                         }
                     });
@@ -419,17 +420,17 @@ class WhatsappCloud {
         return response;
     }
 
-    async sendImage({ recipientNumber, message, filePath, url }) {
+    async sendImage({ recipientNumber, message, file_path, url }) {
         this._mustHaveRecipientNumber(recipientNumber);
-        if (filePath && url) {
+        if (file_path && url) {
             throw new Error(
-                'You can only send an image in your "filePath" or an image in a publicly available "url". Provide either "filePath" or "url".'
+                'You can only send an image in your "file_path" or an image in a publicly available "url". Provide either "file_path" or "url".'
             );
         }
 
-        if (!filePath && !url) {
+        if (!file_path && !url) {
             throw new Error(
-                'You must send an image in your "filePath" or an image in a publicly available "url". Provide either "filePath" or "url".'
+                'You must send an image in your "file_path" or an image in a publicly available "url". Provide either "file_path" or "url".'
             );
         }
 
@@ -439,8 +440,8 @@ class WhatsappCloud {
             to: recipientNumber,
             type: 'image',
         };
-        if (filePath) {
-            let uploadedFile = await this._uploadMedia({ filePath });
+        if (file_path) {
+            let uploadedFile = await this._uploadMedia({ file_path });
 
             let media_id = uploadedFile.media_id;
 
@@ -461,9 +462,6 @@ class WhatsappCloud {
             // };
             // body.media_id = media_id;
         } else {
-            console.log({
-                url,
-            });
             body['image'] = {
                 link: url,
             };
@@ -487,7 +485,58 @@ class WhatsappCloud {
 
     async sendAudio({ message, recipientNumber }) {}
 
-    async sendDocument({ message, recipientNumber }) {}
+    async sendDocument({
+        recipientNumber,
+        caption,
+        file_path,
+        url,
+        file_name,
+    }) {
+        this._mustHaveRecipientNumber(recipientNumber);
+        if (file_path && url) {
+            throw new Error(
+                'You can only send a document in your "file_path" or one that is in a publicly available "url". Provide either "file_path" or "url".'
+            );
+        }
+
+        if (!file_path && !url) {
+            throw new Error(
+                'You must send a document in your "file_path" or one that is in a publicly available "url". Provide either "file_path" or "url".'
+            );
+        }
+
+        let body = {
+            messaging_product: 'whatsapp',
+            recipient_type: 'individual',
+            to: recipientNumber,
+            type: 'document',
+            document: {
+                caption: caption || '',
+            },
+        };
+
+        if (file_path) {
+            let uploadedFile = await this._uploadMedia({
+                file_path,
+                file_name,
+            });
+            body['document']['id'] = uploadedFile.media_id;
+            body['document']['filename'] = uploadedFile.file_name || '';
+        } else {
+            body['document']['link'] = url;
+        }
+
+        let response = await this._fetchAssistant({
+            url: '/messages',
+            method: 'POST',
+            body,
+        });
+
+        return {
+            response,
+            body,
+        };
+    }
 
     async sendLocation({
         recipientNumber,

@@ -157,6 +157,24 @@
     });
     ```
 
+-   Send a document to a recipient:
+
+    ```js
+    // Send a document that is hosted on a public URL
+    await Whatsapp.sendDocument({
+        recipientNumber: 'your recipient phone number here',
+        caption: 'Invoice #123.',
+        url: 'http://pdfkit.org/demo/out.pdf',
+    });
+
+    // Send a document that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
+    await Whatsapp.sendDocument({
+        recipientNumber: 'your recipient phone number here',
+        file_path: './output.pdf',
+        file_name: 'Invoice #123',
+    });
+    ```
+
 -   Parse incoming messages:
 
     ```js
