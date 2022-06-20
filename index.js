@@ -516,9 +516,11 @@ class WhatsappCloud {
         };
 
         if (file_path) {
-            if(!file_name) {
-                throw new Error('"file_name" is required alongside "file_path" in uploading && attaching a document');
-            };
+            if (!file_name) {
+                throw new Error(
+                    '"file_name" is required alongside "file_path" in uploading && attaching a document'
+                );
+            }
             let uploadedFile = await this._uploadMedia({
                 file_path,
                 file_name,
@@ -526,8 +528,10 @@ class WhatsappCloud {
             body['document']['id'] = uploadedFile.media_id;
             body['document']['filename'] = uploadedFile.file_name || '';
         } else {
-            if(!caption){
-                throw new Error('A "caption" is required alongside "url" in attaching a document.');
+            if (!caption) {
+                throw new Error(
+                    'A "caption" is required alongside "url" in attaching a document.'
+                );
             }
             body['document']['link'] = url;
         }
