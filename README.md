@@ -191,7 +191,7 @@
     Whatsapp.parseMessage(req.body);
     ```
 
-# Limitations:
+## Limitations:
 
 -   The button id must be between 1 and 256 characters long.
 -   The button title must be between 1 and 20 characters long.
