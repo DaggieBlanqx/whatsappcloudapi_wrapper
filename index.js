@@ -453,10 +453,6 @@ class WhatsappCloud {
                 link: newLink.url,
             };
 
-            console.log({
-                media_id,
-                newLink,
-            });
             // body['image'] = {
             //     id: media_id,
             // };
@@ -708,8 +704,6 @@ class WhatsappCloud {
                 suffix: name.suffix || null,
                 prefix: name.prefix || null,
             };
-
-            console.log({ name_obj });
 
             if (
                 !name_obj.formatted_name &&
