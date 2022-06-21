@@ -590,7 +590,7 @@ class WhatsappCloud {
         return response;
     }
 
-    async sendContact({ recipientNumber }) {
+    async sendContact({ recipientNumber, contact_profile }) {
         this._mustHaveRecipientNumber(recipientNumber);
         let sample = {
             messaging_product: 'whatsapp',
@@ -667,80 +667,175 @@ class WhatsappCloud {
             ],
         };
 
+        let format_address = (address) => {
+            let address_obj = {
+                street: address.street || null,
+                city: address.city || null,
+                state: address.state || null,
+                zip: address.zip || null,
+                country: address.country || null,
+                country_code: address.country_code || null,
+                type: address.type || null,
+            };
+
+            return address_obj;
+        };
+
+        let format_email = (email) => {
+            if (!email || !email?.email) {
+                return {};
+            }
+
+            let email_obj = {
+                email: email.email || null,
+                type: email.type || null,
+            };
+
+            return email_obj;
+        };
+
+        let format_name = (name) => {
+            if (!name || !name?.first_name || !name?.last_name) {
+                throw new Error(
+                    'Provide both "name.first_name" and "name.last_name".'
+                );
+            }
+            let name_obj = {
+                formatted_name: name.formatted_name || null,
+                first_name: name.first_name || null,
+                last_name: name.last_name || null,
+                middle_name: name.middle_name || null,
+                suffix: name.suffix || null,
+                prefix: name.prefix || null,
+            };
+
+            console.log({ name_obj });
+
+            if (
+                !name_obj.formatted_name &&
+                name_obj.first_name &&
+                name_obj.last_name
+            ) {
+                name_obj.formatted_name = `${name_obj.first_name} ${name_obj.last_name}`;
+            }
+
+            return name_obj;
+        };
+
+        let format_org = (org) => {
+            if (!org || !org?.company) {
+                return {};
+            }
+            let org_obj = {
+                company: org.company || null,
+                department: org.department || null,
+                title: org.title || null,
+            };
+
+            return org_obj;
+        };
+
+        let format_phone = (phone) => {
+            if (!phone || !phone?.phone) {
+                return {};
+            }
+            let phone_obj = {
+                phone: phone.phone || null,
+                type: phone.type || null,
+                wa_id: phone.wa_id || null,
+            };
+
+            return phone_obj;
+        };
+
+        let format_url = (url) => {
+            if (!url || !url?.url) {
+                return {};
+            }
+            let url_obj = {
+                url: url.url || null,
+                type: url.type || null,
+            };
+
+            return url_obj;
+        };
+
+        let format_birthday = (birthday) => {
+            if (!birthday) {
+                return null;
+            } else {
+                //ensure it is a valid date
+                function isValidDate(dateObject) {
+                    return new Date(dateObject).toString() !== 'Invalid Date';
+                }
+
+                if (!isValidDate(birthday)) {
+                    throw new Error(
+                        'Provide a valid date in format: "YYYY-MM-DD"'
+                    );
+                }
+
+                return birthday;
+            }
+        };
+
+        let format_contact = ({
+            addresses,
+            emails,
+            name,
+            org,
+            phones,
+            urls,
+            birthday,
+        }) => {
+            let fields = {
+                addresses: [],
+                emails: [],
+                name: {},
+                org: {},
+                phones: [],
+                urls: [],
+                birthday: '',
+            };
+
+            if (addresses && Array.isArray(addresses) && addresses.length > 0) {
+                fields.addresses = addresses.map(format_address);
+            }
+
+            if (emails && Array.isArray(emails) && emails.length > 0) {
+                fields.emails = emails.map(format_email);
+            }
+
+            if (name && typeof name === 'object') {
+                fields.name = format_name(name);
+            }
+
+            if (org && typeof org === 'object') {
+                fields.org = format_org(org);
+            }
+
+            if (phones && Array.isArray(phones) && phones.length > 0) {
+                fields.phones = phones.map(format_phone);
+            }
+
+            if (urls && Array.isArray(urls) && urls.length > 0) {
+                fields.urls = urls.map(format_url);
+            }
+
+            if (birthday) {
+                fields.birthday = format_birthday(birthday);
+            }
+
+            return fields;
+        };
+
         let body = {
             messaging_product: 'whatsapp',
             to: recipientNumber,
             type: 'contacts',
-            contacts: [
-                {
-                    addresses: [
-                        {
-                            street: '1 Hacker Way',
-                            city: 'Menlo Park',
-                            state: 'CA',
-                            zip: '94025',
-                            country: 'United States',
-                            country_code: 'us',
-                            type: 'HOME',
-                        },
-                        {
-                            street: '200 Jefferson Dr',
-                            city: 'Menlo Park',
-                            state: 'CA',
-                            zip: '94025',
-                            country: 'United States',
-                            country_code: 'us',
-                            type: 'WORK',
-                        },
-                    ],
-                    birthday: '2012-08-18',
-                    emails: [
-                        {
-                            email: 'test@fb.com',
-                            type: 'WORK',
-                        },
-                        {
-                            email: 'test@whatsapp.com',
-                            type: 'HOME',
-                        },
-                    ],
-                    name: {
-                        formatted_name: 'John Smith',
-                        first_name: 'John',
-                        last_name: 'Smith',
-                        middle_name: 'D.',
-                        suffix: 'Jr',
-                        prefix: 'Dr',
-                    },
-                    org: {
-                        company: 'WhatsApp',
-                        department: 'Design',
-                        title: 'Manager',
-                    },
-                    phones: [
-                        {
-                            phone: '+1 (940) 555-1234',
-                            type: 'HOME',
-                        },
-                        {
-                            phone: '+1 (650) 555-1234',
-                            type: 'WORK',
-                            wa_id: '16505551234',
-                        },
-                    ],
-                    urls: [
-                        {
-                            url: 'https://www.facebook.com',
-                            type: 'WORK',
-                        },
-                        {
-                            url: 'https://www.whatsapp.com',
-                            type: 'HOME',
-                        },
-                    ],
-                },
-            ],
+            contacts: [format_contact(contact_profile)],
         };
+
         let response = await this._fetchAssistant({
             url: '/messages',
             method: 'POST',

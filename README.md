@@ -182,21 +182,98 @@
     });
     ```
 
+-   Send a contact to a recipient:
+
+    ```js
+    await Whatsapp.sendContact({
+        recipientNumber: recipientNumber,
+        contact_profile: {
+            addresses: [
+                {
+                    street: '1 Hacker Way',
+                    city: 'Menlo Park',
+                    state: 'CA',
+                    zip: '94025',
+                    country: 'United States',
+                    country_code: 'us',
+                    type: 'HOME',
+                },
+                {
+                    street: '200 Jefferson Dr',
+                    city: 'Menlo Park',
+                    state: 'CA',
+                    zip: '94025',
+                    country: 'United States',
+                    country_code: 'us',
+                    type: 'WORK',
+                },
+            ],
+            birthday: '2002-02-14',
+            emails: [
+                {
+                    email: 'test@fb.com',
+                    type: 'WORK',
+                },
+                {
+                    email: 'test@whatsapp.com',
+                    type: 'HOME',
+                },
+            ],
+            name: {
+                formatted_name: 'Daggie Blanqx',
+                first_name: 'Daggie',
+                last_name: 'Blanqx',
+                middle_name: 'M.',
+                suffix: 'Sr',
+                prefix: 'Sw Engr',
+            },
+            org: {
+                company: 'WhatsApp',
+                department: 'Design',
+                title: 'Manager',
+            },
+            phones: [
+                {
+                    phone: '+1 (940) 555-1234',
+                    type: 'HOME',
+                    wa_id: '16505551234', // optional
+                },
+                {
+                    phone: '+1 (650) 555-1234',
+                    type: 'WORK', // optional
+                    wa_id: '16505551234', // optional
+                },
+            ],
+            urls: [
+                {
+                    url: 'https://www.facebook.com',
+                    type: 'WORK',
+                },
+                {
+                    url: 'https://www.whatsapp.com',
+                    type: 'HOME',
+                },
+            ],
+        },
+    });
+    ```
+
 -   Generate a QR code which can be scanned by a recipient:
+
     ```js
     let result = await Whatsapp.createQRCodeMessage({
-                    message: `Your QR code message here. I am a message hidden in a QR code.`,
-                    imageType: 'png' || 'svg',
-                });
+        message: `Your QR code message here. I am a message hidden in a QR code.`,
+        imageType: 'png' || 'svg',
+    });
 
     let urlOfImage = result.data.qr_image_url;
     ```
+
     See the image below on how to display the QR code: <br/>
     <img src="./static_files/XEIDF3D5FTBDF1.png"
      alt="Markdown Monster icon"
      style="height:250px;width:250px" />
     <br/>
-    
 
 -   Parse incoming messages:
 
