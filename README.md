@@ -275,6 +275,15 @@
      style="height:250px;width:250px" />
     <br/>
 
+-   Mark a message as read:
+
+    ```js
+    await Whatsapp.markMessageAsRead({
+        message_id,
+    });
+    // A non-retryable error will be thrown if the message is not found or a message that has already been read.
+    ```
+
 -   Parse incoming messages:
 
     ```js
