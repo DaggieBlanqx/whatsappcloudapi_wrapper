@@ -279,7 +279,7 @@
 
     ```js
     await Whatsapp.markMessageAsRead({
-        message_id,
+        message_id: 'the id of your message here',
     });
     // A non-retryable error will be thrown if the message is not found or a message that has already been read.
     ```
