@@ -74,7 +74,10 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
     if (notificationMessage) {
         output['isNotificationMessage'] = true;
         output['notificationType'] = notificationMessage.status;
-        output['notificationMessage'] = notificationMessage;
+        notificationMessage['sender'] = {
+            name: contacts.profile.name,
+            phone: notificationMessage.recipient_id,
+        };
     } else if (message) {
         output['isNotificationMessage'] = false;
         let msgType;
@@ -114,8 +117,10 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
             name: contacts.profile.name,
             phone: message?.from,
         };
-        output['message'] = message;
     }
+
+    output['message'] = message;
+    output['notificationMessage'] = notificationMessage;
 
     return output;
 };
