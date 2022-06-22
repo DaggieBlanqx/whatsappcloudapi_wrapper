@@ -85,29 +85,29 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
         output['isMessage'] = true;
         let msgType;
         if (message.type === 'text' && message.referral) {
-            msgType = 'adMessage';
+            msgType = 'ad_message';
         } else if (message.type === 'text') {
-            msgType = 'textMessage';
+            msgType = 'text_message';
         } else if (message.type === 'sticker') {
-            msgType = 'stickerMessage';
+            msgType = 'sticker_message';
         } else if (message.type === 'image') {
-            msgType = 'mediaMessage';
+            msgType = 'media_message';
         } else if (message.location) {
-            msgType = 'locationMessage';
+            msgType = 'location_message';
         } else if (message.contacts) {
-            msgType = 'contactMessage';
+            msgType = 'contact_message';
         } else if (message.type === 'button') {
-            msgType = 'quickReplyMessage';
+            msgType = 'quick_reply_message';
         } else if (message.type === 'interactive') {
             if (message.interactive?.type === 'list_reply') {
-                msgType = 'listMessage';
+                msgType = 'radio_button_message';
                 message['list_reply'] = message.interactive.list_reply;
             } else if (message.interactive?.type === 'button_reply') {
-                msgType = 'replyButtonMessage';
+                msgType = 'simple_button_message';
                 message['button_reply'] = message.interactive.button_reply;
             }
         } else if (message.type === 'unsupported') {
-            msgType = 'unknownMessage';
+            msgType = 'unknown_message';
             if (message.errors?.length) {
                 output['isNotificationMessage'] = true;
                 output['isMessage'] = false;
