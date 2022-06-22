@@ -80,7 +80,7 @@
 
     ```js
     await Whatsapp.sendButtons({
-        recipientNumber: recipientNumber,
+        recipientNumber: 'your recipient phone number here',
         message: `How may I help you today`,
         listOfButtons: [
             {
