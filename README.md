@@ -233,7 +233,7 @@
     // Send a video that is hosted on a public URL
     await Whatsapp.sendVideo({
         recipientNumber,
-        file_name: 'Fname',
+        caption: 'Test',
         file_path: './last.mp4',
     });
 
@@ -242,7 +242,6 @@
     // Send a video that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
     await Whatsapp.sendVideo({
         recipientNumber,
-        caption: 'Test',
         url: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4',
     });
     ```
