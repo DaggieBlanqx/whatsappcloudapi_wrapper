@@ -79,6 +79,7 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
             name: null, //name is not available for notifications, it is only available for messages
             phone: notificationMessage.recipient_id,
         };
+        output['notificationMessage'] = notificationMessage;
     } else if (message) {
         output['isNotificationMessage'] = false;
         output['isMessage'] = true;
@@ -146,7 +147,6 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
     } else {
         console.warn('An unidentified.');
     }
-    output['notificationMessage'] = notificationMessage;
 
     return output;
 };
