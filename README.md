@@ -78,29 +78,26 @@
 
 -   Send a list of buttons to the recipient (max number of buttons allowed are 3)
 
-    ````js
-
-         await Whatsapp.sendButtons({
-                        recipientNumber: recipientNumber,
-                        message: `How may I help you today`,
-                        listOfButtons: [
-                            {
-                                title: 'See some products',
-                                id: 'see_categories',
-                            },
-                            {
-                                title: 'Send my invoice',
-                                id: 'print_invoice',
-                            },
-                            {
-                                title: 'Talk to a human',
-                                id: 'talk_to_human',
-                            },
-                        ],
-                    });
-        ```
-
-    ````
+    ```js
+    await Whatsapp.sendButtons({
+        recipientNumber: recipientNumber,
+        message: `How may I help you today`,
+        listOfButtons: [
+            {
+                title: 'See some products',
+                id: 'see_categories',
+            },
+            {
+                title: 'Send my invoice',
+                id: 'print_invoice',
+            },
+            {
+                title: 'Talk to a human',
+                id: 'talk_to_human',
+            },
+        ],
+    });
+    ```
 
 -   Send a list of radio buttons to a recipient: (max number of radio buttons allowed are 10)
 
