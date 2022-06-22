@@ -2,15 +2,16 @@
 
 -   Here is the easiest, most intuitive way for businesses and developers to start building on the Whatsapp Cloud API.
 
-<img src="./static_files/379234-whatsapp-cloud-api.jpeg"
-    alt="Whatsapp Cloud API"
-    style="height:450px;width:900px" />
-<br/>
 <img src="https://img.shields.io/npm/v/whatsappcloudapi_wrapper"
     alt="Whatsapp Cloud API"/>
 
 <img src="https://img.shields.io/npm/dw/whatsappcloudapi_wrapper"
     alt="Whatsapp Cloud API"/>
+<br/>
+
+<img src="./static_files/379234-whatsapp-cloud-api.jpeg"
+    alt="Whatsapp Cloud API"
+    style="height:450px;width:900px" />
 <br/>
 
 <!-- ![npm bundle size](https://img.shields.io/bundlephobia/min/whatsappcloudapi_wrapper) -->
