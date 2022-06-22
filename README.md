@@ -1,6 +1,4 @@
-# whatsappcloudapi_wrapper
-
--   Here is the easiest, most intuitive way for businesses and developers to start building on the Whatsapp Cloud API.
+# whatsappcloudapi_wrapper 🎉
 
 <img src="https://img.shields.io/npm/v/whatsappcloudapi_wrapper"
     alt="Whatsapp Cloud API"/>
@@ -8,6 +6,32 @@
 <img src="https://img.shields.io/npm/dw/whatsappcloudapi_wrapper"
     alt="Whatsapp Cloud API"/>
 <br/>
+
+The <b>easiest</b>, most intuitive way for <b>businesses</b> and <b>developers</b> to start building on the <b>Whatsapp Cloud API</b>.
+
+😻 Send a free-formatted text message to a recipient
+
+🍟 Send a Geo-location message to a recipient
+
+📃 Send a document to a recipient
+
+📷 Send an image to a recipient
+
+🎞 Send a video to a recipient
+
+🔉 Send an audio to a recipient
+
+🔙 Send a list of buttons to the recipient (max number of buttons allowed are 3)
+
+🛒 Send a list of radio buttons to a recipient (max number of radio buttons allowed are 10)
+
+🤙🏾 Send a contact to a recipient
+
+🔐 Generate a QR code which can be scanned by a recipient
+
+📖 Mark a message as read
+
+🎨🖌 Parse incoming messages
 
 <img src="./static_files/379234-whatsapp-cloud-api.jpeg"
     alt="Whatsapp Cloud API"/>
