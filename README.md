@@ -212,7 +212,7 @@
     ```js
     // Send an image that is hosted on a public URL
     await Whatsapp.sendImage({
-        recipientNumber,
+        recipientNumber: 'your recipient phone number here',
         caption: 'Test',
         file_path: 'https://example.com/image.png',
     });
@@ -221,7 +221,7 @@
 
     // Send an image that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
     await Whatsapp.sendImage({
-        recipientNumber,
+        recipientNumber: 'your recipient phone number here',
         caption: 'Test',
         file_path: './XEIDF3D5FTBDF1.png',
     });
@@ -232,7 +232,7 @@
     ```js
     // Send a video that is hosted on a public URL
     await Whatsapp.sendVideo({
-        recipientNumber,
+        recipientNumber: 'your recipient phone number here',
         caption: 'Test',
         file_path: './last.mp4',
     });
@@ -241,7 +241,7 @@
 
     // Send a video that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
     await Whatsapp.sendVideo({
-        recipientNumber,
+        recipientNumber: 'your recipient phone number here',
         url: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4',
     });
     ```
