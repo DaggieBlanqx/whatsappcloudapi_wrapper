@@ -322,12 +322,16 @@
 -   The title of the list must be between 1 and 24 characters long.
 -   The id of the list must be between 1 and 200 characters long.
 
+### Help information
+
+-   If you have any questions, ask via the [GitHub Discussion forums](https://github.com/DaggieBlanqx/whatsappcloudapi_wrapper/discussions)
+-   If you have any suggestions or feedback, please [open an issue](https://github.com/DaggieBlanqx/whatsappcloudapi_wrapper/issues) or [create a pull](https://github.com/DaggieBlanqx/whatsappcloudapi_wrapper/pulls).
+
 ### Notes:
 
 -   This package is in active development.
 -   This means new features are added regularly.
--   Incase your favorite feature is missing, you can always bump a version backwards or create a pull request which will be reviewed and merged into the next release.
--   If you have any suggestions or feedback, please open an issue or create a pull request.
+-   Incase your favorite feature is missing, you can always bump a version backwards or [create a pull request](https://github.com/DaggieBlanqx/whatsappcloudapi_wrapper/pulls) which will be reviewed and merged into [the next release](https://github.com/DaggieBlanqx/whatsappcloudapi_wrapper/releases).
 -   Thanks for your contribution.
 -   Happy coding!
 
