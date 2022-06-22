@@ -325,7 +325,7 @@
 ### Help information
 
 -   If you have any questions, ask via the [GitHub Discussion forums](https://github.com/DaggieBlanqx/whatsappcloudapi_wrapper/discussions)
--   If you have any suggestions or feedback, please [open an issue](https://github.com/DaggieBlanqx/whatsappcloudapi_wrapper/issues) or [create a pull](https://github.com/DaggieBlanqx/whatsappcloudapi_wrapper/pulls).
+-   If you have any suggestions or feedback, please [open an issue](https://github.com/DaggieBlanqx/whatsappcloudapi_wrapper/issues) or [create a pull request](https://github.com/DaggieBlanqx/whatsappcloudapi_wrapper/pulls).
 
 ### Notes:
 
