@@ -18,31 +18,34 @@
 
 -   To install this package in your project:
 -   Using NPM:
-    ```js
+
+```js
         npm install whatsappcloudapi_wrapper
-    ```
+```
+
 -   Using Yarn:
-    ```js
+
+```js
         yarn add whatsappcloudapi_wrapper
-    ```
+```
 
 ### Usage:
 
 -   First import the package as follows:
 
-    ```js
-    const WhatsappCloudAPI = require('whatsappcloudapi_wrapper');
-    ```
+```js
+const WhatsappCloudAPI = require('whatsappcloudapi_wrapper');
+```
 
 -   Then initialize the class as follows:
 
-    ```js
-    const Whatsapp = new WhatsappCloudAPI({
-        accessToken: 'Your access token here',
-        senderPhoneNumberId: 'Your sender phone number id here',
-        WABA_ID: 'Your Whatsapp Business Account id here',
-    });
-    ```
+```js
+const Whatsapp = new WhatsappCloudAPI({
+    accessToken: 'Your access token here',
+    senderPhoneNumberId: 'Your sender phone number id here',
+    WABA_ID: 'Your Whatsapp Business Account id here',
+});
+```
 
 #### Send a free-formatted text message to a recipient:
 
@@ -53,304 +56,303 @@ await Whatsapp.sendText({
 });
 ```
 
-        > Quick Question:
-        - How does a recipient phone number look like?
+    > Quick Question:
+    - How does a recipient phone number look like?
 
-        > Quick Answer:
-        - A recipient phone number is the international phone number of the recipient without the '+' prefix.
-        - For example, where a Kenyan phone number is '+254712345678' we would send the message to a recipientNumber 254712345678.
-        - For a phone number +15550253483 we would send the message to a recipientNumber 15550253483.
-        - For an US phone number +1 555-555-5555 we would send the message to a recipientNumber 5555555555.
+    > Quick Answer:
+    - A recipient phone number is the international phone number of the recipient without the '+' prefix.
+    - For example, where a Kenyan phone number is '+254712345678' we would send the message to a recipientNumber 254712345678.
+    - For a phone number +15550253483 we would send the message to a recipientNumber 15550253483.
+    - For an US phone number +1 555-555-5555 we would send the message to a recipientNumber 5555555555.
 
-        Makes sense?
+    Makes sense?
 
 #### Send a Geo-location message to a recipient:
 
-    ```js
-    await Whatsapp.sendLocation({
-        recipientNumber: 'your recipient phone number here',
-        latitude: 'your latitude here',
-        longitude: 'your longitude here',
-        name: 'your location name here',
-        address: 'your location street/address here',
-    });
-    ```
+```js
+await Whatsapp.sendLocation({
+    recipientNumber: 'your recipient phone number here',
+    latitude: 'your latitude here',
+    longitude: 'your longitude here',
+    name: 'your location name here',
+    address: 'your location street/address here',
+});
+```
 
 #### Send a document to a recipient:
 
-    ```js
-    // Send a document that is hosted on a public URL
-    await Whatsapp.sendDocument({
-        recipientNumber: 'your recipient phone number here',
-        caption: 'Invoice #123.',
-        url: 'http://pdfkit.org/demo/out.pdf',
-    });
+```js
+// Send a document that is hosted on a public URL
+await Whatsapp.sendDocument({
+    recipientNumber: 'your recipient phone number here',
+    caption: 'Invoice #123.',
+    url: 'http://pdfkit.org/demo/out.pdf',
+});
 
-    //OR
+//OR
 
-    // Send a document that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
-    await Whatsapp.sendDocument({
-        recipientNumber: 'your recipient phone number here',
-        file_path: './output.pdf',
-        file_name: 'Invoice #123',
-    });
-    ```
+// Send a document that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
+await Whatsapp.sendDocument({
+    recipientNumber: 'your recipient phone number here',
+    file_path: './output.pdf',
+    file_name: 'Invoice #123',
+});
+```
 
 #### Send an image to a recipient
 
-    ```js
-    // Send an image that is hosted on a public URL
-    await Whatsapp.sendImage({
-        recipientNumber: 'your recipient phone number here',
-        caption: 'Test',
-        file_path: 'https://example.com/image.png',
-    });
+```js
+// Send an image that is hosted on a public URL
+await Whatsapp.sendImage({
+    recipientNumber: 'your recipient phone number here',
+    caption: 'Test',
+    file_path: 'https://example.com/image.png',
+});
 
-    // OR
+// OR
 
-    // Send an image that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
-    await Whatsapp.sendImage({
-        recipientNumber: 'your recipient phone number here',
-        caption: 'Test',
-        file_path: './XEIDF3D5FTBDF1.png',
-    });
-    ```
+// Send an image that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
+await Whatsapp.sendImage({
+    recipientNumber: 'your recipient phone number here',
+    caption: 'Test',
+    file_path: './XEIDF3D5FTBDF1.png',
+});
+```
 
 #### Send a video to a recipient
 
-    ```js
-    // Send a video that is hosted on a public URL
-    await Whatsapp.sendVideo({
-        recipientNumber: 'your recipient phone number here',
-        url: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4',
-    });
+```js
+// Send a video that is hosted on a public URL
+await Whatsapp.sendVideo({
+    recipientNumber: 'your recipient phone number here',
+    url: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4',
+});
 
-    // OR
+// OR
 
-    // Send a video that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
-    await Whatsapp.sendVideo({
-        recipientNumber: 'your recipient phone number here',
-        caption: 'Test',
-        file_path: './last.mp4',
-    });
-    ```
+// Send a video that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
+await Whatsapp.sendVideo({
+    recipientNumber: 'your recipient phone number here',
+    caption: 'Test',
+    file_path: './last.mp4',
+});
+```
 
 #### Send an audio to a recipient
 
-    ```js
-    // Send an audio that is hosted on a public URL
-    await Whatsapp.sendAudio({
-        recipientNumber: 'your recipient phone number here',
-        url: 'https://example.com/audio.mp3',
-    });
+```js
+// Send an audio that is hosted on a public URL
+await Whatsapp.sendAudio({
+    recipientNumber: 'your recipient phone number here',
+    url: 'https://example.com/audio.mp3',
+});
 
-    // OR
+// OR
 
-    // Send an audio that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
-    await Whatsapp.sendAudio({
-        recipientNumber: 'your recipient phone number here',
-        caption: 'Test',
-        file_path: './last.mp3',
-    });
-    ```
+// Send an audio that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
+await Whatsapp.sendAudio({
+    recipientNumber: 'your recipient phone number here',
+    caption: 'Test',
+    file_path: './last.mp3',
+});
+```
 
 #### Send a list of buttons to the recipient (max number of buttons allowed are 3)
 
-    ```js
-    await Whatsapp.sendButtons({
-        recipientNumber: 'your recipient phone number here',
-        message: `How may I help you today`,
-        listOfButtons: [
-            {
-                title: 'See some products',
-                id: 'see_categories',
-            },
-            {
-                title: 'Send my invoice',
-                id: 'print_invoice',
-            },
-            {
-                title: 'Talk to a human',
-                id: 'talk_to_human',
-            },
-        ],
-    });
-    ```
+```js
+await Whatsapp.sendButtons({
+    recipientNumber: 'your recipient phone number here',
+    message: `How may I help you today`,
+    listOfButtons: [
+        {
+            title: 'See some products',
+            id: 'see_categories',
+        },
+        {
+            title: 'Send my invoice',
+            id: 'print_invoice',
+        },
+        {
+            title: 'Talk to a human',
+            id: 'talk_to_human',
+        },
+    ],
+});
+```
 
 #### Send a list of radio buttons to a recipient: (max number of radio buttons allowed are 10)
 
-    ```js
-    await Whatsapp.sendList({
-        recipientNumber: 'your recipient phone number here',
-        headerText: 'Black Friday Top 10 Products',
-        bodyText:
-            'Daggie has some great products lined up for you based on your previous shopping history.\nPlease select one of the products below.',
-        footerText: 'Approved by Daggie Blanqx',
-        listOfSections: [
-            {
-                title: 'Top 3 Fashion',
-                rows: [
-                    {
-                        title: 'Black LVX T-Shirt',
-                        description:
-                            'KES 2999.00\nLVX is a warm cotton t-shirt',
-                        id: 'SKU12_black_lvx_tshirt',
-                    },
-                    {
-                        title: 'Purple hoodie',
-                        description:
-                            'KES 1999.00\nPurple hoodie with a Logrocket logo',
-                        id: 'SKU13_purple_hoodie',
-                    },
-                    {
-                        title: 'Air Jordan 1',
-                        description:
-                            'KES 10999.00\nWe move where others do not.Wanna fly?',
-                        id: 'SKU14_air_jordan_1',
-                    },
-                ],
-            },
-            {
-                title: 'Top 3 Gadgets',
-                rows: [
-                    {
-                        title: 'Apple Watch',
-                        description:
-                            'KES 75999.00\nTime is finite, enjoy every second of it',
-                        id: 'SKU15_apple_watch',
-                    },
-                    {
-                        title: 'Surface Pro',
-                        description: `KES 59999.00\nDon't just surf the web, surf the world`,
-                        id: 'SKU16_surface_pro',
-                    },
-                    {
-                        title: 'Xiaomi Beats Speaker',
-                        description: `KES 45699\nIt is in how your heartbeats, the way Xiaomi Beats.`,
-                        id: 'SKU17_xiaomi_beats_speaker',
-                    },
-                ],
-            },
-            {
-                title: 'Top 3 Kitchen',
-                rows: [
-                    {
-                        title: 'Portable Hand Mixer',
-                        description: `KES7899\nTempt thy sweetbuds by mixing your favorite food uniformly.`,
-                        id: 'SKU18_portable_hand_mixer',
-                    },
-                    {
-                        title: 'Non-stick waffle-maker',
-                        description: `KES7899\nGreat Waffles are made with the best ingredients.`,
-                        id: 'SKU19_non_stick_waffle_maker',
-                    },
-                    {
-                        title: '6-set Cooking Spoons',
-                        description: `KES7899\nHold thy happiness right.`,
-                        id: 'SKU20_6_set_cooking_spoons',
-                    },
-                ],
-            },
-            {
-                title: '1 random pick',
-                rows: [
-                    {
-                        title: 'Nivea Icy Soap',
-                        description: `KES899\nStay hydrated and refreshed. Nourish your skin.`,
-                        id: 'SKU21_nivea_icy_soap',
-                    },
-                ],
-            },
-        ],
-    });
-    ```
-
-#### Send a contact to a recipient:
-
-    ```js
-    await Whatsapp.sendContact({
-        recipientNumber: recipientNumber,
-        contact_profile: {
-            addresses: [
+```js
+await Whatsapp.sendList({
+    recipientNumber: 'your recipient phone number here',
+    headerText: 'Black Friday Top 10 Products',
+    bodyText:
+        'Daggie has some great products lined up for you based on your previous shopping history.\nPlease select one of the products below.',
+    footerText: 'Approved by Daggie Blanqx',
+    listOfSections: [
+        {
+            title: 'Top 3 Fashion',
+            rows: [
                 {
-                    street: '1 Hacker Way',
-                    city: 'Menlo Park',
-                    state: 'CA',
-                    zip: '94025',
-                    country: 'United States',
-                    country_code: 'us',
-                    type: 'HOME',
+                    title: 'Black LVX T-Shirt',
+                    description: 'KES 2999.00\nLVX is a warm cotton t-shirt',
+                    id: 'SKU12_black_lvx_tshirt',
                 },
                 {
-                    street: '200 Jefferson Dr',
-                    city: 'Menlo Park',
-                    state: 'CA',
-                    zip: '94025',
-                    country: 'United States',
-                    country_code: 'us',
-                    type: 'WORK',
-                },
-            ],
-            birthday: '2002-02-14',
-            emails: [
-                {
-                    email: 'test@fb.com',
-                    type: 'WORK',
+                    title: 'Purple hoodie',
+                    description:
+                        'KES 1999.00\nPurple hoodie with a Logrocket logo',
+                    id: 'SKU13_purple_hoodie',
                 },
                 {
-                    email: 'test@whatsapp.com',
-                    type: 'HOME',
-                },
-            ],
-            name: {
-                formatted_name: 'Daggie Blanqx',
-                first_name: 'Daggie',
-                last_name: 'Blanqx',
-                middle_name: 'M.',
-                suffix: 'Sr',
-                prefix: 'Sw Engr',
-            },
-            org: {
-                company: 'WhatsApp',
-                department: 'Design',
-                title: 'Manager',
-            },
-            phones: [
-                {
-                    phone: '+1 (940) 555-1234',
-                    type: 'HOME',
-                    wa_id: '16505551234', // optional
-                },
-                {
-                    phone: '+1 (650) 555-1234',
-                    type: 'WORK', // optional
-                    wa_id: '16505551234', // optional
-                },
-            ],
-            urls: [
-                {
-                    url: 'https://www.facebook.com',
-                    type: 'WORK',
-                },
-                {
-                    url: 'https://www.whatsapp.com',
-                    type: 'HOME',
+                    title: 'Air Jordan 1',
+                    description:
+                        'KES 10999.00\nWe move where others do not.Wanna fly?',
+                    id: 'SKU14_air_jordan_1',
                 },
             ],
         },
-    });
-    ```
+        {
+            title: 'Top 3 Gadgets',
+            rows: [
+                {
+                    title: 'Apple Watch',
+                    description:
+                        'KES 75999.00\nTime is finite, enjoy every second of it',
+                    id: 'SKU15_apple_watch',
+                },
+                {
+                    title: 'Surface Pro',
+                    description: `KES 59999.00\nDon't just surf the web, surf the world`,
+                    id: 'SKU16_surface_pro',
+                },
+                {
+                    title: 'Xiaomi Beats Speaker',
+                    description: `KES 45699\nIt is in how your heartbeats, the way Xiaomi Beats.`,
+                    id: 'SKU17_xiaomi_beats_speaker',
+                },
+            ],
+        },
+        {
+            title: 'Top 3 Kitchen',
+            rows: [
+                {
+                    title: 'Portable Hand Mixer',
+                    description: `KES7899\nTempt thy sweetbuds by mixing your favorite food uniformly.`,
+                    id: 'SKU18_portable_hand_mixer',
+                },
+                {
+                    title: 'Non-stick waffle-maker',
+                    description: `KES7899\nGreat Waffles are made with the best ingredients.`,
+                    id: 'SKU19_non_stick_waffle_maker',
+                },
+                {
+                    title: '6-set Cooking Spoons',
+                    description: `KES7899\nHold thy happiness right.`,
+                    id: 'SKU20_6_set_cooking_spoons',
+                },
+            ],
+        },
+        {
+            title: '1 random pick',
+            rows: [
+                {
+                    title: 'Nivea Icy Soap',
+                    description: `KES899\nStay hydrated and refreshed. Nourish your skin.`,
+                    id: 'SKU21_nivea_icy_soap',
+                },
+            ],
+        },
+    ],
+});
+```
 
--   Generate a QR code which can be scanned by a recipient:
+#### Send a contact to a recipient:
 
-    ```js
-    let result = await Whatsapp.createQRCodeMessage({
-        message: `Your QR code message here. I am a message hidden in a QR code.`,
-        imageType: 'png' || 'svg',
-    });
+```js
+await Whatsapp.sendContact({
+    recipientNumber: recipientNumber,
+    contact_profile: {
+        addresses: [
+            {
+                street: '1 Hacker Way',
+                city: 'Menlo Park',
+                state: 'CA',
+                zip: '94025',
+                country: 'United States',
+                country_code: 'us',
+                type: 'HOME',
+            },
+            {
+                street: '200 Jefferson Dr',
+                city: 'Menlo Park',
+                state: 'CA',
+                zip: '94025',
+                country: 'United States',
+                country_code: 'us',
+                type: 'WORK',
+            },
+        ],
+        birthday: '2002-02-14',
+        emails: [
+            {
+                email: 'test@fb.com',
+                type: 'WORK',
+            },
+            {
+                email: 'test@whatsapp.com',
+                type: 'HOME',
+            },
+        ],
+        name: {
+            formatted_name: 'Daggie Blanqx',
+            first_name: 'Daggie',
+            last_name: 'Blanqx',
+            middle_name: 'M.',
+            suffix: 'Sr',
+            prefix: 'Sw Engr',
+        },
+        org: {
+            company: 'WhatsApp',
+            department: 'Design',
+            title: 'Manager',
+        },
+        phones: [
+            {
+                phone: '+1 (940) 555-1234',
+                type: 'HOME',
+                wa_id: '16505551234', // optional
+            },
+            {
+                phone: '+1 (650) 555-1234',
+                type: 'WORK', // optional
+                wa_id: '16505551234', // optional
+            },
+        ],
+        urls: [
+            {
+                url: 'https://www.facebook.com',
+                type: 'WORK',
+            },
+            {
+                url: 'https://www.whatsapp.com',
+                type: 'HOME',
+            },
+        ],
+    },
+});
+```
 
-    let urlOfImage = result.data.qr_image_url;
-    ```
+##### Generate a QR code which can be scanned by a recipient:
+
+```js
+let result = await Whatsapp.createQRCodeMessage({
+    message: `Your QR code message here. I am a message hidden in a QR code.`,
+    imageType: 'png' || 'svg',
+});
+
+let urlOfImage = result.data.qr_image_url;
+```
 
     See the image below on how to display the QR code: <br/>
     <img src="./static_files/XEIDF3D5FTBDF1.png"
@@ -358,20 +360,20 @@ await Whatsapp.sendText({
      style="height:250px;width:250px" />
     <br/>
 
--   Mark a message as read:
+#### Mark a message as read:
 
-    ```js
-    await Whatsapp.markMessageAsRead({
-        message_id: 'the id of your message here',
-    });
-    // A non-retryable error will be thrown if the message is not found or a message that has already been read.
-    ```
+```js
+await Whatsapp.markMessageAsRead({
+    message_id: 'the id of your message here',
+});
+// A non-retryable error will be thrown if the message is not found or a message that has already been read.
+```
 
--   Parse incoming messages:
+#### Parse incoming messages:
 
-    ```js
-    Whatsapp.parseMessage(req.body);
-    ```
+```js
+Whatsapp.parseMessage(req.body);
+```
 
 ## Limitations:
 
