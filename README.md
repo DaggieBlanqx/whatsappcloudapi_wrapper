@@ -8,6 +8,10 @@
 
 ### Frequently Asked Questions:
 
+<img src="./static_files/379234-whatsapp-cloud-api.jpeg"
+    alt="Whatsapp Cloud API"/>
+<br/>
+
 -   What is WhatsApp Cloud API? [Watch this 60seconds video](https://www.youtube.com/watch?v=LaHnC7emQNM) during the launch Whatsapp Cloud API.
 -   What is this package? This package is an unofficial and _open-source_ NodeJS wrapper around the official [WhatsApp Cloud API](https://developers.facebook.com/docs/whatsapp/cloud-api).
 -   Why is this package useful? Because it allows you to use the WhatsApp Cloud API without having to write a lot of code.
