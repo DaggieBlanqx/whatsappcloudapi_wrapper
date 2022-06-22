@@ -120,11 +120,32 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
             name: contacts.profile.name,
             phone: message?.from,
         };
+
+        if (output.isMessage) {
+            let context = null;
+
+            if (message.context) {
+                context = {
+                    sender: {
+                        name: null,
+                        phone: message.context?.from,
+                        message_id: message.context?.id,
+                    },
+                };
+            }
+
+            output['message'] = {
+                ...message,
+                context,
+                message_id: message.id || null,
+            };
+
+            delete output.message.id; //keep the data light
+            delete output.message.from; //keep the data light
+        }
     } else {
         console.warn('An unidentified.');
     }
-
-    output['message'] = message;
     output['notificationMessage'] = notificationMessage;
 
     return output;
