@@ -1,16 +1,21 @@
 # whatsappcloudapi_wrapper
 
-![npm](https://img.shields.io/npm/v/whatsappcloudapi_wrapper)
+-   Here is the easiest, most intuitive way for businesses and developers to start building on the Whatsapp Cloud API.
+
+<img src="./static_files/379234-whatsapp-cloud-api.jpeg"
+    alt="Whatsapp Cloud API"
+    style="height:450px;width:900px" />
+<br/>
+<img src="https://img.shields.io/npm/v/whatsappcloudapi_wrapper"
+    alt="Whatsapp Cloud API"/>
+
+<img src="https://img.shields.io/npm/dw/whatsappcloudapi_wrapper"
+    alt="Whatsapp Cloud API"/>
+<br/>
 
 <!-- ![npm bundle size](https://img.shields.io/bundlephobia/min/whatsappcloudapi_wrapper) -->
 
-![npm](https://img.shields.io/npm/dw/whatsappcloudapi_wrapper)
-
 ### Frequently Asked Questions:
-
-<img src="./static_files/379234-whatsapp-cloud-api.jpeg"
-    alt="Whatsapp Cloud API"/>
-<br/>
 
 -   What is WhatsApp Cloud API? [Watch this 60seconds video](https://www.youtube.com/watch?v=LaHnC7emQNM) during the launch Whatsapp Cloud API.
 -   What is this package? This package is an unofficial and _open-source_ NodeJS wrapper around the official [WhatsApp Cloud API](https://developers.facebook.com/docs/whatsapp/cloud-api).
