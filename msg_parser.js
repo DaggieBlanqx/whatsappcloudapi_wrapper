@@ -109,6 +109,12 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
         msgType = 'unknownMessage';
     }
 
+    message['type'] = msgType;
+    message['sender'] = {
+        name: contacts.profile.name,
+        phone: message.from,
+    };
+
     return {
         WABA_ID,
         isNotificationMessage,
