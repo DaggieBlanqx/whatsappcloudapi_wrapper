@@ -11,7 +11,7 @@ The <b>easiest</b>, most intuitive way for <b>businesses</b> and <b>developers</
 
 😻 Send a free-formatted text message to a recipient
 
-🍟 Send a Geo-location message to a recipient
+🗺 Send a Geo-location message to a recipient
 
 📃 Send a document to a recipient
 
