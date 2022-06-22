@@ -58,6 +58,17 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
         ? requestBody.entry[0].changes[0].value.messages[0]
         : null;
 
+
+    if(!message){
+        //it doesn't have value.messages instead it only contains value.statuses
+        console.log({
+        //     statuses:requestBody.entry[0].changes[0].statuses,
+        //     metadata:requestBody.entry[0].changes[0].metadata
+    str: JSON.stringify( metadata:requestBody.entry[0].changes[0])     
+    })
+    }
+    
+
     let actualType;
     if (message?.type) {
         actualType = message.type;
@@ -107,12 +118,17 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
         message['button_reply'] = message.interactive.button_reply;
     } else if (actualType === 'unsupported') {
         msgType = 'unknownMessage';
+    } else {
+        msgType = 'unknown';
+        // console.log({
+        //     actualType,
+        //     message
+        // })
     }
-
     message['type'] = msgType;
     message['sender'] = {
         name: contacts.profile.name,
-        phone: message.from,
+        phone: message?.from,
     };
 
     return {
