@@ -44,7 +44,7 @@
     });
     ```
 
--   Send a free-formatted text message to a recipient:
+#### Send a free-formatted text message to a recipient:
 
     ```js
     await Whatsapp.sendText({
@@ -64,7 +64,7 @@
 
         Makes sense?
 
--   Send a Geo-location message to a recipient:
+#### Send a Geo-location message to a recipient:
 
     ```js
     await Whatsapp.sendLocation({
@@ -76,7 +76,7 @@
     });
     ```
 
--   Send a document to a recipient:
+#### Send a document to a recipient:
 
     ```js
     // Send a document that is hosted on a public URL
@@ -96,7 +96,7 @@
     });
     ```
 
--   Send an image to a recipient
+#### Send an image to a recipient
 
     ```js
     // Send an image that is hosted on a public URL
@@ -116,7 +116,7 @@
     });
     ```
 
--   Send a video to a recipient
+#### Send a video to a recipient
 
     ```js
     // Send a video that is hosted on a public URL
@@ -135,7 +135,7 @@
     });
     ```
 
--   Send an audio to a recipient
+#### Send an audio to a recipient
 
     ```js
     // Send an audio that is hosted on a public URL
@@ -154,7 +154,7 @@
     });
     ```
 
--   Send a list of buttons to the recipient (max number of buttons allowed are 3)
+#### Send a list of buttons to the recipient (max number of buttons allowed are 3)
 
     ```js
     await Whatsapp.sendButtons({
@@ -177,7 +177,7 @@
     });
     ```
 
--   Send a list of radio buttons to a recipient: (max number of radio buttons allowed are 10)
+#### Send a list of radio buttons to a recipient: (max number of radio buttons allowed are 10)
 
     ```js
     await Whatsapp.sendList({
@@ -265,7 +265,7 @@
     });
     ```
 
--   Send a contact to a recipient:
+#### Send a contact to a recipient:
 
     ```js
     await Whatsapp.sendContact({
