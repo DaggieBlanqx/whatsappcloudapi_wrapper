@@ -75,7 +75,7 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
         output['isNotificationMessage'] = true;
         output['isMessage'] = false;
         output['notificationType'] = notificationMessage.status;
-        notificationMessage['sender'] = {
+        notificationMessage['from'] = {
             name: null, //name is not available for notifications, it is only available for messages
             phone: notificationMessage.recipient_id,
         };
@@ -117,17 +117,17 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
             }
         }
         message['type'] = msgType;
-        message['sender'] = {
+        message['from'] = {
             name: contacts.profile.name,
             phone: message?.from,
         };
 
         if (output.isMessage) {
-            let context = null;
+            let thread = null;
 
             if (message.context) {
-                context = {
-                    sender: {
+                thread = {
+                    from: {
                         name: null,
                         phone: message.context?.from,
                         message_id: message.context?.id,
@@ -137,12 +137,13 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
 
             output['message'] = {
                 ...message,
-                context,
+                thread,
                 message_id: message.id || null,
             };
 
             delete output.message.id; //keep the data light
             delete output.message.from; //keep the data light
+            delete output.context; //keep the data light
         }
     } else {
         console.warn('An unidentified.');

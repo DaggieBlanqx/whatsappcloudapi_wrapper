@@ -108,10 +108,10 @@ class WhatsappCloud {
                     });
             });
         };
-        this._mustHaveRecipientNumber = (recipientNumber) => {
-            if (!recipientNumber) {
+        this._mustHaverecipientPhone = (recipientPhone) => {
+            if (!recipientPhone) {
                 throw new Error(
-                    '"recipientNumber" is required in making a request'
+                    '"recipientPhone" is required in making a request'
                 );
             }
         };
@@ -203,7 +203,7 @@ class WhatsappCloud {
         return response;
     }
 
-    async PENDING_TESTS_sendText({ message, recipientNumber }) {
+    async PENDING_TESTS_sendText({ message, recipientPhone }) {
         let response = await this._fetchAssistant({
             url: '/messages',
             method: 'POST',
@@ -211,7 +211,7 @@ class WhatsappCloud {
                 messaging_product: 'whatsapp',
                 preview_url: false,
                 recipient_type: 'individual',
-                to: recipientNumber,
+                to: recipientPhone,
                 type: 'text',
                 text: {
                     body: message,
@@ -221,14 +221,14 @@ class WhatsappCloud {
 
         return response;
     }
-    async sendText({ message, recipientNumber }) {
+    async sendText({ message, recipientPhone }) {
         // to do: context is not working
 
-        this._mustHaveRecipientNumber(recipientNumber);
+        this._mustHaverecipientPhone(recipientPhone);
         this._mustHaveMessage(message);
         let body = {
             messaging_product: 'whatsapp',
-            to: recipientNumber,
+            to: recipientPhone,
             type: 'text',
             text: {
                 preview_url: false,
@@ -262,9 +262,9 @@ class WhatsappCloud {
         };
     }
 
-    async sendButtons({ recipientNumber, message, listOfButtons }) {
+    async sendButtons({ recipientPhone, message, listOfButtons }) {
         this._mustHaveMessage(message);
-        this._mustHaveRecipientNumber(recipientNumber);
+        this._mustHaverecipientPhone(recipientPhone);
         let validButtons = listOfButtons
             .map((button) => {
                 if (!button.title || button.title.length > 20) {
@@ -295,7 +295,7 @@ class WhatsappCloud {
         let body = {
             messaging_product: 'whatsapp',
             recipient_type: 'individual',
-            to: recipientNumber,
+            to: recipientPhone,
             type: 'interactive',
             interactive: {
                 type: 'button',
@@ -318,14 +318,14 @@ class WhatsappCloud {
     }
 
     async sendList({
-        recipientNumber,
+        recipientPhone,
 
         headerText,
         bodyText,
         footerText,
         listOfSections,
     }) {
-        this._mustHaveRecipientNumber(recipientNumber);
+        this._mustHaverecipientPhone(recipientPhone);
 
         if (!bodyText)
             throw new Error('"bodyText" is required in making a request');
@@ -384,7 +384,7 @@ class WhatsappCloud {
         let samples = {
             messaging_product: 'whatsapp',
             recipient_type: 'individual',
-            to: recipientNumber,
+            to: recipientPhone,
             type: 'interactive',
             interactive: {
                 type: 'list',
@@ -418,8 +418,8 @@ class WhatsappCloud {
         return response;
     }
 
-    async sendImage({ recipientNumber, caption, file_path, file_name, url }) {
-        this._mustHaveRecipientNumber(recipientNumber);
+    async sendImage({ recipientPhone, caption, file_path, file_name, url }) {
+        this._mustHaverecipientPhone(recipientPhone);
         if (file_path && url) {
             throw new Error(
                 'You can only send an image in your "file_path" or an image in a publicly available "url". Provide either "file_path" or "url".'
@@ -435,7 +435,7 @@ class WhatsappCloud {
         let body = {
             messaging_product: 'whatsapp',
             recipient_type: 'individual',
-            to: recipientNumber,
+            to: recipientPhone,
             type: 'image',
             image: {
                 caption: caption || '',
@@ -464,8 +464,8 @@ class WhatsappCloud {
             body,
         };
     }
-    async sendVideo({ recipientNumber, caption, file_path, file_name, url }) {
-        this._mustHaveRecipientNumber(recipientNumber);
+    async sendVideo({ recipientPhone, caption, file_path, file_name, url }) {
+        this._mustHaverecipientPhone(recipientPhone);
         if (file_path && url) {
             throw new Error(
                 'You can only send an video in your "file_path" or an video in a publicly available "url". Provide either "file_path" or "url".'
@@ -481,7 +481,7 @@ class WhatsappCloud {
         let body = {
             messaging_product: 'whatsapp',
             recipient_type: 'individual',
-            to: recipientNumber,
+            to: recipientPhone,
             type: 'video',
             video: {
                 caption: caption || '',
@@ -511,8 +511,8 @@ class WhatsappCloud {
         };
     }
 
-    async sendAudio({ recipientNumber, caption, file_path, file_name, url }) {
-        this._mustHaveRecipientNumber(recipientNumber);
+    async sendAudio({ recipientPhone, caption, file_path, file_name, url }) {
+        this._mustHaverecipientPhone(recipientPhone);
         if (file_path && url) {
             throw new Error(
                 'You can only send an audio in your "file_path" or an audio in a publicly available "url". Provide either "file_path" or "url".'
@@ -528,7 +528,7 @@ class WhatsappCloud {
         let body = {
             messaging_product: 'whatsapp',
             recipient_type: 'individual',
-            to: recipientNumber,
+            to: recipientPhone,
             type: 'audio',
             audio: {
                 caption: caption || '',
@@ -558,14 +558,8 @@ class WhatsappCloud {
         };
     }
 
-    async sendDocument({
-        recipientNumber,
-        caption,
-        file_path,
-        url,
-        file_name,
-    }) {
-        this._mustHaveRecipientNumber(recipientNumber);
+    async sendDocument({ recipientPhone, caption, file_path, url, file_name }) {
+        this._mustHaverecipientPhone(recipientPhone);
         if (file_path && url) {
             throw new Error(
                 'You can only send a document in your "file_path" or one that is in a publicly available "url". Provide either "file_path" or "url".'
@@ -581,7 +575,7 @@ class WhatsappCloud {
         let body = {
             messaging_product: 'whatsapp',
             recipient_type: 'individual',
-            to: recipientNumber,
+            to: recipientPhone,
             type: 'document',
             document: {
                 caption: caption || '',
@@ -621,14 +615,8 @@ class WhatsappCloud {
         };
     }
 
-    async sendLocation({
-        recipientNumber,
-        latitude,
-        longitude,
-        name,
-        address,
-    }) {
-        this._mustHaveRecipientNumber(recipientNumber);
+    async sendLocation({ recipientPhone, latitude, longitude, name, address }) {
+        this._mustHaverecipientPhone(recipientPhone);
         if (!latitude || !longitude) {
             throw new Error(
                 '"latitude" and "longitude" are required in making a request'
@@ -644,7 +632,7 @@ class WhatsappCloud {
         let body = {
             messaging_product: 'whatsapp',
             recipient_type: 'individual',
-            to: recipientNumber,
+            to: recipientPhone,
             type: 'location',
             location: {
                 latitude,
@@ -663,8 +651,8 @@ class WhatsappCloud {
         return response;
     }
 
-    async sendContact({ recipientNumber, contact_profile }) {
-        this._mustHaveRecipientNumber(recipientNumber);
+    async sendContact({ recipientPhone, contact_profile }) {
+        this._mustHaverecipientPhone(recipientPhone);
         let sample = {
             messaging_product: 'whatsapp',
             to: '{{Recipient-Phone-Number}}',
@@ -902,7 +890,7 @@ class WhatsappCloud {
 
         let body = {
             messaging_product: 'whatsapp',
-            to: recipientNumber,
+            to: recipientPhone,
             type: 'contacts',
             contacts: [format_contact(contact_profile)],
         };
@@ -916,30 +904,18 @@ class WhatsappCloud {
         return response;
     }
 
-    async sendSticker({ message, recipientNumber }) {}
+    async sendSticker({ message, recipientPhone }) {}
 
-    async getUserProfile({ recipientNumber }) {}
+    async getUserProfile({ recipientPhone }) {}
 
-    async getUserStatus({ recipientNumber }) {}
+    async getUserStatus({ recipientPhone }) {}
 
-    async getUserProfilePicture({ recipientNumber }) {}
+    async getUserProfilePicture({ recipientPhone }) {}
 
-    async getUserStatusPicture({ recipientNumber }) {}
+    async getUserStatusPicture({ recipientPhone }) {}
 
     parseMessage(requestBody) {
         return messageParser({ requestBody, currentWABA_ID: this.WABA_ID });
     }
 }
-
-/**
- * USAGE:
- *
- * const whatsapp = new WhatsappCloud();
- *
- * whatsapp.sendText({
- *     message: "Hello World",
- *    recipientNumber: "551198989898"
- * })
- * **/
-
 module.exports = WhatsappCloud;

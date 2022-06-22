@@ -85,7 +85,7 @@ const Whatsapp = new WhatsappCloudAPI({
 ```js
 await Whatsapp.sendText({
     message: 'Hello world',
-    recipientNumber: 'your recipient phone number here',
+    recipientPhone: 'your recipient phone number here',
 });
 ```
 
@@ -94,9 +94,9 @@ await Whatsapp.sendText({
 
     > Quick Answer:
     - A recipient phone number is the international phone number of the recipient without the '+' prefix.
-    - For example, where a Kenyan phone number is '+254712345678' we would send the message to a recipientNumber 254712345678.
-    - For a phone number +15550253483 we would send the message to a recipientNumber 15550253483.
-    - For an US phone number +1 555-555-5555 we would send the message to a recipientNumber 5555555555.
+    - For example, where a Kenyan phone number is '+254712345678' we would send the message to a recipientPhone 254712345678.
+    - For a phone number +15550253483 we would send the message to a recipientPhone 15550253483.
+    - For an US phone number +1 555-555-5555 we would send the message to a recipientPhone 5555555555.
 
     Makes sense?
 
@@ -104,7 +104,7 @@ await Whatsapp.sendText({
 
 ```js
 await Whatsapp.sendLocation({
-    recipientNumber: 'your recipient phone number here',
+    recipientPhone: 'your recipient phone number here',
     latitude: 'your latitude here',
     longitude: 'your longitude here',
     name: 'your location name here',
@@ -117,7 +117,7 @@ await Whatsapp.sendLocation({
 ```js
 // Send a document that is hosted on a public URL
 await Whatsapp.sendDocument({
-    recipientNumber: 'your recipient phone number here',
+    recipientPhone: 'your recipient phone number here',
     caption: 'Invoice #123.',
     url: 'http://pdfkit.org/demo/out.pdf',
 });
@@ -126,7 +126,7 @@ await Whatsapp.sendDocument({
 
 // Send a document that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
 await Whatsapp.sendDocument({
-    recipientNumber: 'your recipient phone number here',
+    recipientPhone: 'your recipient phone number here',
     file_path: './output.pdf',
     file_name: 'Invoice #123',
 });
@@ -137,7 +137,7 @@ await Whatsapp.sendDocument({
 ```js
 // Send an image that is hosted on a public URL
 await Whatsapp.sendImage({
-    recipientNumber: 'your recipient phone number here',
+    recipientPhone: 'your recipient phone number here',
     caption: 'Test',
     file_path: 'https://example.com/image.png',
 });
@@ -146,7 +146,7 @@ await Whatsapp.sendImage({
 
 // Send an image that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
 await Whatsapp.sendImage({
-    recipientNumber: 'your recipient phone number here',
+    recipientPhone: 'your recipient phone number here',
     caption: 'Test',
     file_path: './XEIDF3D5FTBDF1.png',
 });
@@ -157,7 +157,7 @@ await Whatsapp.sendImage({
 ```js
 // Send a video that is hosted on a public URL
 await Whatsapp.sendVideo({
-    recipientNumber: 'your recipient phone number here',
+    recipientPhone: 'your recipient phone number here',
     url: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4',
 });
 
@@ -165,7 +165,7 @@ await Whatsapp.sendVideo({
 
 // Send a video that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
 await Whatsapp.sendVideo({
-    recipientNumber: 'your recipient phone number here',
+    recipientPhone: 'your recipient phone number here',
     caption: 'Test',
     file_path: './last.mp4',
 });
@@ -176,7 +176,7 @@ await Whatsapp.sendVideo({
 ```js
 // Send an audio that is hosted on a public URL
 await Whatsapp.sendAudio({
-    recipientNumber: 'your recipient phone number here',
+    recipientPhone: 'your recipient phone number here',
     url: 'https://example.com/audio.mp3',
 });
 
@@ -184,7 +184,7 @@ await Whatsapp.sendAudio({
 
 // Send an audio that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
 await Whatsapp.sendAudio({
-    recipientNumber: 'your recipient phone number here',
+    recipientPhone: 'your recipient phone number here',
     caption: 'Test',
     file_path: './last.mp3',
 });
@@ -194,7 +194,7 @@ await Whatsapp.sendAudio({
 
 ```js
 await Whatsapp.sendButtons({
-    recipientNumber: 'your recipient phone number here',
+    recipientPhone: 'your recipient phone number here',
     message: `How may I help you today`,
     listOfButtons: [
         {
@@ -217,7 +217,7 @@ await Whatsapp.sendButtons({
 
 ```js
 await Whatsapp.sendList({
-    recipientNumber: 'your recipient phone number here',
+    recipientPhone: 'your recipient phone number here',
     headerText: 'Black Friday Top 10 Products',
     bodyText:
         'Daggie has some great products lined up for you based on your previous shopping history.\nPlease select one of the products below.',
@@ -304,7 +304,7 @@ await Whatsapp.sendList({
 
 ```js
 await Whatsapp.sendContact({
-    recipientNumber: recipientNumber,
+    recipientPhone: recipientPhone,
     contact_profile: {
         addresses: [
             {
