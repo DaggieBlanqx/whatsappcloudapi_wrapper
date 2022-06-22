@@ -142,7 +142,6 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
             };
 
             delete output.message.id; //keep the data light
-            delete output.message.from; //keep the data light
             delete output.context; //keep the data light
         }
     } else {
