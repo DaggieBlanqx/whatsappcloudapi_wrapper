@@ -54,90 +54,68 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
     let contacts = requestBody.entry[0].changes[0].value.contacts?.length
         ? requestBody.entry[0].changes[0].value.contacts[0]
         : null;
+
+    // Messages vs Notifications
     let message = requestBody.entry[0].changes[0].value?.messages?.length
         ? requestBody.entry[0].changes[0].value.messages[0]
         : null;
 
+    let notificationMessage = requestBody.entry[0].changes[0].value?.statuses
+        ?.length
+        ? requestBody.entry[0].changes[0].value.statuses[0]
+        : null;
 
-    if(!message){
-        //it doesn't have value.messages instead it only contains value.statuses
-        console.log({
-        //     statuses:requestBody.entry[0].changes[0].statuses,
-        //     metadata:requestBody.entry[0].changes[0].metadata
-    str: JSON.stringify( metadata:requestBody.entry[0].changes[0])     
-    })
-    }
-    
-
-    let actualType;
-    if (message?.type) {
-        actualType = message.type;
-    } else if (message?.location) {
-        actualType = 'location';
-    } else if (message?.contacts) {
-        actualType = 'contact';
-    }
-
-    let isNotificationMessage;
-    if (requestBody.entry[0].changes[0].value.statuses?.length) {
-        isNotificationMessage = true;
-    } else {
-        if (actualType === 'unsupported' && message.errors?.length) {
-            isNotificationMessage = true;
-        } else {
-            isNotificationMessage = false;
-        }
-    }
-
-    let msgType;
-    if (actualType === 'text' && message.referral) {
-        msgType = 'adMessage';
-    } else if (actualType === 'text') {
-        msgType = 'textMessage';
-    } else if (actualType === 'sticker') {
-        msgType = 'stickerMessage';
-    } else if (actualType === 'image') {
-        msgType = 'mediaMessage';
-    } else if (actualType === 'location') {
-        msgType = 'locationMessage';
-    } else if (actualType === 'contact') {
-        msgType = 'contactMessage';
-    } else if (actualType === 'button') {
-        msgType = 'quickReplyMessage';
-    } else if (
-        actualType === 'interactive' &&
-        message.interactive.type === 'list_reply'
-    ) {
-        msgType = 'listMessage';
-        message['list_reply'] = message.interactive.list_reply;
-    } else if (
-        actualType === 'interactive' &&
-        message.interactive.type === 'button_reply'
-    ) {
-        msgType = 'replyButtonMessage';
-        message['button_reply'] = message.interactive.button_reply;
-    } else if (actualType === 'unsupported') {
-        msgType = 'unknownMessage';
-    } else {
-        msgType = 'unknown';
-        // console.log({
-        //     actualType,
-        //     message
-        // })
-    }
-    message['type'] = msgType;
-    message['sender'] = {
-        name: contacts.profile.name,
-        phone: message?.from,
-    };
-
-    return {
-        WABA_ID,
-        isNotificationMessage,
-        actualType,
-        msgType,
+    const output = {
         metadata,
         contacts,
-        message,
+        WABA_ID,
     };
+
+    if (notificationMessage) {
+        output['isNotificationMessage'] = true;
+        output['notificationType'] = notificationMessage.status;
+        output['notificationMessage'] = notificationMessage;
+    } else if (message) {
+        output['isNotificationMessage'] = false;
+        let msgType;
+        if (message.type === 'text' && message.referral) {
+            msgType = 'adMessage';
+        } else if (message.type === 'text') {
+            msgType = 'textMessage';
+        } else if (message.type === 'sticker') {
+            msgType = 'stickerMessage';
+        } else if (message.type === 'image') {
+            msgType = 'mediaMessage';
+        } else if (message.location) {
+            msgType = 'locationMessage';
+        } else if (message.contacts) {
+            msgType = 'contactMessage';
+        } else if (message.type === 'button') {
+            msgType = 'quickReplyMessage';
+        } else if (message.type === 'interactive') {
+            if (message.interactive?.type === 'list_reply') {
+                msgType = 'listMessage';
+                message['list_reply'] = message.interactive.list_reply;
+            } else if (message.interactive?.type === 'button_reply') {
+                msgType = 'replyButtonMessage';
+                message['button_reply'] = message.interactive.button_reply;
+            }
+        } else if (message.type === 'unsupported') {
+            msgType = 'unknownMessage';
+            if (message.errors?.length) {
+                output['isNotificationMessage'] = true;
+                notificationMessage = {
+                    errors: message.errors,
+                };
+            }
+        }
+        message['type'] = msgType;
+        message['sender'] = {
+            name: contacts.profile.name,
+            phone: message?.from,
+        };
+        output['message'] = message;
+    }
+
+    return output;
 };
