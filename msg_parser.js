@@ -73,6 +73,7 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
 
     if (notificationMessage) {
         output['isNotificationMessage'] = true;
+        output['isMessage'] = false;
         output['notificationType'] = notificationMessage.status;
         notificationMessage['sender'] = {
             name: null, //name is not available for notifications, it is only available for messages
@@ -80,6 +81,7 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
         };
     } else if (message) {
         output['isNotificationMessage'] = false;
+        output['isMessage'] = true;
         let msgType;
         if (message.type === 'text' && message.referral) {
             msgType = 'adMessage';
@@ -107,6 +109,7 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
             msgType = 'unknownMessage';
             if (message.errors?.length) {
                 output['isNotificationMessage'] = true;
+                output['isMessage'] = false;
                 notificationMessage = {
                     errors: message.errors,
                 };
@@ -117,6 +120,8 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
             name: contacts.profile.name,
             phone: message?.from,
         };
+    } else {
+        console.warn('An unidentified.');
     }
 
     output['message'] = message;
