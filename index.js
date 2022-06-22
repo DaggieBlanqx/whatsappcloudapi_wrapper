@@ -130,7 +130,7 @@ class WhatsappCloud {
         this._uploadMedia = async ({ file_path, file_name }) => {
             return new Promise((resolve, reject) => {
                 const mediaFile = fs.createReadStream(file_path);
-
+                // type = type || 'image';
                 unirest(
                     'POST',
                     `https://graph.facebook.com/${this.graphAPIVersion}/${this.senderPhoneNumberId}/media`
@@ -140,8 +140,6 @@ class WhatsappCloud {
                     })
                     .field('messaging_product', 'whatsapp')
                     .attach('file', mediaFile)
-                    // .field('type', 'image/jpeg')
-                    .field('type', 'image')
                     .end((res) => {
                         if (res.error) {
                             reject(res.error);
@@ -420,7 +418,7 @@ class WhatsappCloud {
         return response;
     }
 
-    async sendImage({ recipientNumber, message, file_path, url }) {
+    async sendImage({ recipientNumber, caption, file_path, file_name, url }) {
         this._mustHaveRecipientNumber(recipientNumber);
         if (file_path && url) {
             throw new Error(
@@ -439,31 +437,67 @@ class WhatsappCloud {
             recipient_type: 'individual',
             to: recipientNumber,
             type: 'image',
+            image: {
+                caption: caption || '',
+            },
         };
         if (file_path) {
-            let uploadedFile = await this._uploadMedia({ file_path });
-
-            let media_id = uploadedFile.media_id;
-
-            let newLink = await this._retrieveMediaUrl({
-                mediaId: media_id,
+            let uploadedFile = await this._uploadMedia({
+                file_path,
+                file_name,
             });
-
-            body['image'] = {
-                link: newLink.url,
-            };
-
-            // body['image'] = {
-            //     id: media_id,
-            // };
-            // body.media_id = media_id;
+            body['image']['id'] = uploadedFile.media_id;
         } else {
             body['image'] = {
                 link: url,
             };
         }
 
-        body['image']['caption'] = message;
+        let response = await this._fetchAssistant({
+            url: '/messages',
+            method: 'POST',
+            body,
+        });
+
+        return {
+            response,
+            body,
+        };
+    }
+    async sendVideo({ recipientNumber, caption, file_path, file_name, url }) {
+        this._mustHaveRecipientNumber(recipientNumber);
+        if (file_path && url) {
+            throw new Error(
+                'You can only send an video in your "file_path" or an video in a publicly available "url". Provide either "file_path" or "url".'
+            );
+        }
+
+        if (!file_path && !url) {
+            throw new Error(
+                'You must send an video in your "file_path" or an video in a publicly available "url". Provide either "file_path" or "url".'
+            );
+        }
+
+        let body = {
+            messaging_product: 'whatsapp',
+            recipient_type: 'individual',
+            to: recipientNumber,
+            type: 'video',
+            video: {
+                caption: caption || '',
+            },
+        };
+        if (file_path) {
+            let uploadedFile = await this._uploadMedia({
+                file_path,
+                file_name,
+            });
+            body['video']['id'] = uploadedFile.media_id;
+        } else {
+            body['video'] = {
+                link: url,
+            };
+        }
 
         let response = await this._fetchAssistant({
             url: '/messages',
@@ -477,7 +511,7 @@ class WhatsappCloud {
         };
     }
 
-    async sendVideo({ message, hostedVideoUrl, recipientNumber }) {}
+    async _sendVideo({ message, hostedVideoUrl, recipientNumber }) {}
 
     async sendAudio({ message, recipientNumber }) {}
 
