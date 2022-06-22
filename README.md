@@ -135,6 +135,25 @@
     });
     ```
 
+-   Send an audio to a recipient
+
+    ```js
+    // Send an audio that is hosted on a public URL
+    await Whatsapp.sendAudio({
+        recipientNumber: 'your recipient phone number here',
+        url: 'https://example.com/audio.mp3',
+    });
+
+    // OR
+
+    // Send an audio that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
+    await Whatsapp.sendAudio({
+        recipientNumber: 'your recipient phone number here',
+        caption: 'Test',
+        file_path: './last.mp3',
+    });
+    ```
+
 -   Send a list of buttons to the recipient (max number of buttons allowed are 3)
 
     ```js

@@ -511,9 +511,52 @@ class WhatsappCloud {
         };
     }
 
-    async _sendVideo({ message, hostedVideoUrl, recipientNumber }) {}
+    async sendAudio({ recipientNumber, caption, file_path, file_name, url }) {
+        this._mustHaveRecipientNumber(recipientNumber);
+        if (file_path && url) {
+            throw new Error(
+                'You can only send an audio in your "file_path" or an audio in a publicly available "url". Provide either "file_path" or "url".'
+            );
+        }
 
-    async sendAudio({ message, recipientNumber }) {}
+        if (!file_path && !url) {
+            throw new Error(
+                'You must send an audio in your "file_path" or an audio in a publicly available "url". Provide either "file_path" or "url".'
+            );
+        }
+
+        let body = {
+            messaging_product: 'whatsapp',
+            recipient_type: 'individual',
+            to: recipientNumber,
+            type: 'audio',
+            audio: {
+                caption: caption || '',
+            },
+        };
+        if (file_path) {
+            let uploadedFile = await this._uploadMedia({
+                file_path,
+                file_name,
+            });
+            body['audio']['id'] = uploadedFile.media_id;
+        } else {
+            body['audio'] = {
+                link: url,
+            };
+        }
+
+        let response = await this._fetchAssistant({
+            url: '/messages',
+            method: 'POST',
+            body,
+        });
+
+        return {
+            response,
+            body,
+        };
+    }
 
     async sendDocument({
         recipientNumber,
@@ -874,8 +917,6 @@ class WhatsappCloud {
     }
 
     async sendSticker({ message, recipientNumber }) {}
-
-    async sendChatAction({ action, recipientNumber }) {}
 
     async getUserProfile({ recipientNumber }) {}
 
