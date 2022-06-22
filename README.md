@@ -46,23 +46,28 @@
 
 #### Send a free-formatted text message to a recipient:
 
-    ```js
+`````js
+
+
     await Whatsapp.sendText({
         message: `Hello world`,
         recipientNumber: 'your recipient phone number here',
     });
-    ```
 
-        > Quick Question:
-        - How does a recipient phone number look like?
 
-        > Quick Answer:
-        - A recipient phone number is the international phone number of the recipient without the '+' prefix.
-        - For example, where a Kenyan phone number is '+254712345678' we would send the message to a recipientNumber 254712345678.
-        - For a phone number +15550253483 we would send the message to a recipientNumber 15550253483.
-        - For an US phone number +1 555-555-5555 we would send the message to a recipientNumber 5555555555.
+    ````
 
-        Makes sense?
+
+    > Quick Question:
+    - How does a recipient phone number look like?
+
+    > Quick Answer:
+    - A recipient phone number is the international phone number of the recipient without the '+' prefix.
+    - For example, where a Kenyan phone number is '+254712345678' we would send the message to a recipientNumber 254712345678.
+    - For a phone number +15550253483 we would send the message to a recipientNumber 15550253483.
+    - For an US phone number +1 555-555-5555 we would send the message to a recipientNumber 5555555555.
+
+    Makes sense?
 
 #### Send a Geo-location message to a recipient:
 
@@ -400,3 +405,4 @@
 -   Follow me on Twitter: [@daggieblanqx](https://twitter.com/daggieblanqx)
 -   I am also on LinkedIn, where you can tag me to the awesome projects you've built using this package: [@daggieblanqx](https://www.linkedin.com/in/daggieblanqx/)
 -   Blog posts: [Logrocket/@Daggieblanqx](https://blog.logrocket.com/author/daggieblanqx/)
+`````
