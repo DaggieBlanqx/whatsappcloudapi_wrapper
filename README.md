@@ -76,6 +76,65 @@
     });
     ```
 
+-   Send a document to a recipient:
+
+    ```js
+    // Send a document that is hosted on a public URL
+    await Whatsapp.sendDocument({
+        recipientNumber: 'your recipient phone number here',
+        caption: 'Invoice #123.',
+        url: 'http://pdfkit.org/demo/out.pdf',
+    });
+
+    //OR
+
+    // Send a document that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
+    await Whatsapp.sendDocument({
+        recipientNumber: 'your recipient phone number here',
+        file_path: './output.pdf',
+        file_name: 'Invoice #123',
+    });
+    ```
+
+-   Send an image to a recipient
+
+    ```js
+    // Send an image that is hosted on a public URL
+    await Whatsapp.sendImage({
+        recipientNumber: 'your recipient phone number here',
+        caption: 'Test',
+        file_path: 'https://example.com/image.png',
+    });
+
+    // OR
+
+    // Send an image that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
+    await Whatsapp.sendImage({
+        recipientNumber: 'your recipient phone number here',
+        caption: 'Test',
+        file_path: './XEIDF3D5FTBDF1.png',
+    });
+    ```
+
+-   Send a video to a recipient
+
+    ```js
+    // Send a video that is hosted on a public URL
+    await Whatsapp.sendVideo({
+        recipientNumber: 'your recipient phone number here',
+        caption: 'Test',
+        file_path: './last.mp4',
+    });
+
+    // OR
+
+    // Send a video that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
+    await Whatsapp.sendVideo({
+        recipientNumber: 'your recipient phone number here',
+        url: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4',
+    });
+    ```
+
 -   Send a list of buttons to the recipient (max number of buttons allowed are 3)
 
     ```js
@@ -184,65 +243,6 @@
                 ],
             },
         ],
-    });
-    ```
-
--   Send a document to a recipient:
-
-    ```js
-    // Send a document that is hosted on a public URL
-    await Whatsapp.sendDocument({
-        recipientNumber: 'your recipient phone number here',
-        caption: 'Invoice #123.',
-        url: 'http://pdfkit.org/demo/out.pdf',
-    });
-
-    //OR
-
-    // Send a document that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
-    await Whatsapp.sendDocument({
-        recipientNumber: 'your recipient phone number here',
-        file_path: './output.pdf',
-        file_name: 'Invoice #123',
-    });
-    ```
-
--   Send an image to a recipient
-
-    ```js
-    // Send an image that is hosted on a public URL
-    await Whatsapp.sendImage({
-        recipientNumber: 'your recipient phone number here',
-        caption: 'Test',
-        file_path: 'https://example.com/image.png',
-    });
-
-    // OR
-
-    // Send an image that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
-    await Whatsapp.sendImage({
-        recipientNumber: 'your recipient phone number here',
-        caption: 'Test',
-        file_path: './XEIDF3D5FTBDF1.png',
-    });
-    ```
-
--   Send a video to a recipient
-
-    ```js
-    // Send a video that is hosted on a public URL
-    await Whatsapp.sendVideo({
-        recipientNumber: 'your recipient phone number here',
-        caption: 'Test',
-        file_path: './last.mp4',
-    });
-
-    // OR
-
-    // Send a video that is in your local filesystem (file will be uploaded to the WhatsApp server first before it is sent).
-    await Whatsapp.sendVideo({
-        recipientNumber: 'your recipient phone number here',
-        url: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4',
     });
     ```
 
