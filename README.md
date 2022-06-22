@@ -190,10 +190,10 @@ await Whatsapp.sendAudio({
 });
 ```
 
-#### Send a list of buttons to the recipient (max number of buttons allowed are 3)
+#### Send a list of simple buttons to the recipient (max number of buttons allowed are 3)
 
 ```js
-await Whatsapp.sendButtons({
+await Whatsapp.sendSimpleButtons({
     recipientPhone: 'your recipient phone number here',
     message: `How may I help you today`,
     listOfButtons: [
@@ -216,7 +216,7 @@ await Whatsapp.sendButtons({
 #### Send a list of radio buttons to a recipient: (max number of radio buttons allowed are 10)
 
 ```js
-await Whatsapp.sendList({
+await Whatsapp.sendRadioButtons({
     recipientPhone: 'your recipient phone number here',
     headerText: 'Black Friday Top 10 Products',
     bodyText:

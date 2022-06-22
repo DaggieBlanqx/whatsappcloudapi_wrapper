@@ -262,7 +262,7 @@ class WhatsappCloud {
         };
     }
 
-    async sendButtons({ recipientPhone, message, listOfButtons }) {
+    async sendSimpleButtons({ recipientPhone, message, listOfButtons }) {
         this._mustHaveMessage(message);
         this._mustHaverecipientPhone(recipientPhone);
         let validButtons = listOfButtons
@@ -317,7 +317,7 @@ class WhatsappCloud {
         return response;
     }
 
-    async sendList({
+    async sendRadioButtons({
         recipientPhone,
 
         headerText,
