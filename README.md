@@ -46,17 +46,12 @@
 
 #### Send a free-formatted text message to a recipient:
 
-`````js
-
-
-    await Whatsapp.sendText({
-        message: `Hello world`,
-        recipientNumber: 'your recipient phone number here',
-    });
-
-
-    ````
-
+```js
+await Whatsapp.sendText({
+    message: 'Hello world',
+    recipientNumber: 'your recipient phone number here',
+});
+```
 
     > Quick Question:
     - How does a recipient phone number look like?
@@ -405,4 +400,7 @@
 -   Follow me on Twitter: [@daggieblanqx](https://twitter.com/daggieblanqx)
 -   I am also on LinkedIn, where you can tag me to the awesome projects you've built using this package: [@daggieblanqx](https://www.linkedin.com/in/daggieblanqx/)
 -   Blog posts: [Logrocket/@Daggieblanqx](https://blog.logrocket.com/author/daggieblanqx/)
-`````
+
+```
+
+```
