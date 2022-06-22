@@ -75,7 +75,7 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
         output['isNotificationMessage'] = true;
         output['notificationType'] = notificationMessage.status;
         notificationMessage['sender'] = {
-            name: contacts.profile.name,
+            name: null, //name is not available for notifications, it is only available for messages
             phone: notificationMessage.recipient_id,
         };
     } else if (message) {
