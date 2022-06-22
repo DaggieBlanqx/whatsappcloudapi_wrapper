@@ -10,8 +10,7 @@
 <br/>
 
 <img src="./static_files/379234-whatsapp-cloud-api.jpeg"
-    alt="Whatsapp Cloud API"
-    style="height:450px;width:900px" />
+    alt="Whatsapp Cloud API"/>
 <br/>
 
 <!-- ![npm bundle size](https://img.shields.io/bundlephobia/min/whatsappcloudapi_wrapper) -->
