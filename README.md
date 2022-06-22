@@ -354,11 +354,11 @@ let result = await Whatsapp.createQRCodeMessage({
 let urlOfImage = result.data.qr_image_url;
 ```
 
-    See the image below on how to display the QR code: <br/>
-    <img src="./static_files/XEIDF3D5FTBDF1.png"
-     alt="Markdown Monster icon"
-     style="height:250px;width:250px" />
-    <br/>
+See the image below on how to display the QR code: <br/>
+<img src="./static_files/XEIDF3D5FTBDF1.png"
+    alt="Markdown Monster icon"
+    style="height:250px;width:250px" />
+<br/>
 
 #### Mark a message as read:
 
