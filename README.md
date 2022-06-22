@@ -53,16 +53,16 @@ await Whatsapp.sendText({
 });
 ```
 
-    > Quick Question:
-    - How does a recipient phone number look like?
+        > Quick Question:
+        - How does a recipient phone number look like?
 
-    > Quick Answer:
-    - A recipient phone number is the international phone number of the recipient without the '+' prefix.
-    - For example, where a Kenyan phone number is '+254712345678' we would send the message to a recipientNumber 254712345678.
-    - For a phone number +15550253483 we would send the message to a recipientNumber 15550253483.
-    - For an US phone number +1 555-555-5555 we would send the message to a recipientNumber 5555555555.
+        > Quick Answer:
+        - A recipient phone number is the international phone number of the recipient without the '+' prefix.
+        - For example, where a Kenyan phone number is '+254712345678' we would send the message to a recipientNumber 254712345678.
+        - For a phone number +15550253483 we would send the message to a recipientNumber 15550253483.
+        - For an US phone number +1 555-555-5555 we would send the message to a recipientNumber 5555555555.
 
-    Makes sense?
+        Makes sense?
 
 #### Send a Geo-location message to a recipient:
 
