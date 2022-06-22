@@ -109,6 +109,7 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
         } else if (message.type === 'unsupported') {
             msgType = 'unknown_message';
             if (message.errors?.length) {
+                console.log({ Q: message.errors });
                 output['isNotificationMessage'] = true;
                 output['isMessage'] = false;
                 notificationMessage = {

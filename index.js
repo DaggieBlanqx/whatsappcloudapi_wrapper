@@ -246,20 +246,34 @@ class WhatsappCloud {
     }
 
     async markMessageAsRead({ message_id }) {
-        this._mustHaveMessageId(message_id);
-        let response = await this._fetchAssistant({
-            url: `/messages`,
-            method: 'POST',
-            body: {
-                messaging_product: 'whatsapp',
-                status: 'read',
-                message_id,
-            },
-        });
-        //ignore error anyway: If message is already read or has already been deleted - since whatever the error it is non-retryable.
-        return {
-            status: 'success',
-        };
+        try {
+            this._mustHaveMessageId(message_id);
+            let response = await this._fetchAssistant({
+                url: `/messages`,
+                method: 'POST',
+                body: {
+                    messaging_product: 'whatsapp',
+                    status: 'read',
+                    message_id,
+                },
+            });
+
+            return response;
+        } catch (error) {
+            let msg = error?.error_data?.details;
+            if (msg && msg.includes('last-seen message in this conversation')) {
+                //ignore error anyway: If message is already read or has already been deleted - since whatever the error it is non-retryable.
+                return {
+                    status: 'success',
+                    data: { success: false, error: msg },
+                };
+            } else {
+                return {
+                    status: 'failed',
+                    error,
+                };
+            }
+        }
     }
 
     async sendSimpleButtons({ recipientPhone, message, listOfButtons }) {
