@@ -128,7 +128,7 @@ await Whatsapp.sendDocument({
 await Whatsapp.sendDocument({
     recipientPhone: 'your recipient phone number here',
     file_path: './output.pdf',
-    file_name: 'Invoice #123',
+    caption: 'Invoice #123',
 });
 ```
 

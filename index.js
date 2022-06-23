@@ -333,7 +333,6 @@ class WhatsappCloud {
 
     async sendRadioButtons({
         recipientPhone,
-
         headerText,
         bodyText,
         footerText,
@@ -567,7 +566,7 @@ class WhatsappCloud {
         };
     }
 
-    async sendDocument({ recipientPhone, caption, file_path, url, file_name }) {
+    async sendDocument({ recipientPhone, caption, file_path, url }) {
         this._mustHaverecipientPhone(recipientPhone);
         if (file_path && url) {
             throw new Error(
@@ -581,6 +580,10 @@ class WhatsappCloud {
             );
         }
 
+        if (!caption) {
+            throw new Error('"caption" is required when sending a document');
+        }
+
         let body = {
             messaging_product: 'whatsapp',
             recipient_type: 'individual',
@@ -592,23 +595,13 @@ class WhatsappCloud {
         };
 
         if (file_path) {
-            if (!file_name) {
-                throw new Error(
-                    '"file_name" is required alongside "file_path" in uploading && attaching a document'
-                );
-            }
             let uploadedFile = await this._uploadMedia({
                 file_path,
-                file_name,
+                file_name: caption,
             });
             body['document']['id'] = uploadedFile.media_id;
             body['document']['filename'] = uploadedFile.file_name || '';
         } else {
-            if (!caption) {
-                throw new Error(
-                    'A "caption" is required alongside "url" in attaching a document.'
-                );
-            }
             body['document']['link'] = url;
         }
 
@@ -662,80 +655,6 @@ class WhatsappCloud {
 
     async sendContact({ recipientPhone, contact_profile }) {
         this._mustHaverecipientPhone(recipientPhone);
-        let sample = {
-            messaging_product: 'whatsapp',
-            to: '{{Recipient-Phone-Number}}',
-            type: 'contacts',
-            contacts: [
-                {
-                    addresses: [
-                        {
-                            street: '1 Hacker Way',
-                            city: 'Menlo Park',
-                            state: 'CA',
-                            zip: '94025',
-                            country: 'United States',
-                            country_code: 'us',
-                            type: 'HOME',
-                        },
-                        {
-                            street: '200 Jefferson Dr',
-                            city: 'Menlo Park',
-                            state: 'CA',
-                            zip: '94025',
-                            country: 'United States',
-                            country_code: 'us',
-                            type: 'WORK',
-                        },
-                    ],
-                    birthday: '2012-08-18',
-                    emails: [
-                        {
-                            email: 'test@fb.com',
-                            type: 'WORK',
-                        },
-                        {
-                            email: 'test@whatsapp.com',
-                            type: 'HOME',
-                        },
-                    ],
-                    name: {
-                        formatted_name: 'John Smith',
-                        first_name: 'John',
-                        last_name: 'Smith',
-                        middle_name: 'D.',
-                        suffix: 'Jr',
-                        prefix: 'Dr',
-                    },
-                    org: {
-                        company: 'WhatsApp',
-                        department: 'Design',
-                        title: 'Manager',
-                    },
-                    phones: [
-                        {
-                            phone: '+1 (940) 555-1234',
-                            type: 'HOME',
-                        },
-                        {
-                            phone: '+1 (650) 555-1234',
-                            type: 'WORK',
-                            wa_id: '16505551234',
-                        },
-                    ],
-                    urls: [
-                        {
-                            url: 'https://www.facebook.com',
-                            type: 'WORK',
-                        },
-                        {
-                            url: 'https://www.whatsapp.com',
-                            type: 'HOME',
-                        },
-                    ],
-                },
-            ],
-        };
 
         let format_address = (address) => {
             let address_obj = {
