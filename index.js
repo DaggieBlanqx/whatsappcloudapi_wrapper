@@ -281,14 +281,24 @@ class WhatsappCloud {
         this._mustHaverecipientPhone(recipientPhone);
         let validButtons = listOfButtons
             .map((button) => {
-                if (!button.title || button.title.length > 20) {
+                if (!button.title) {
                     throw new Error(
-                        '"title" is required in making a request. The button title must be between 1 and 20 characters long.'
+                        '"title" is required in making a request.'
                     );
                 }
-                if (!button.id || button.id.length > 256) {
+                if (button.title.length > 20) {
                     throw new Error(
-                        '"id" is required in making a request. The button id must be between 1 and 256 characters long.'
+                        'The button title must be between 1 and 20 characters long.'
+                    );
+                }
+                if (!button.id) {
+                    throw new Error(
+                        '"id" is required in making a request.'
+                    );
+                }
+                if (button.id.length > 256) {
+                    throw new Error(
+                        'The button id must be between 1 and 256 characters long.'
                     );
                 }
 
@@ -353,20 +363,35 @@ class WhatsappCloud {
             .map((section) => {
                 let title = section.title;
                 let rows = section.rows?.map((row) => {
-                    if (!row.id || row.id.length > 200) {
+                    if (!row.id) {
                         throw new Error(
-                            '"row.id" of an item is required in list of radio buttons. It must be between 1 and 200 characters long.'
+                            '"row.id" of an item is required in list of radio buttons.'
                         );
                     }
-                    if (!row.title || row.title > 24) {
+                    if(row.id.length > 200) {
                         throw new Error(
-                            '"row.title" of an item is required in list of radio buttons. It must be between 1 and 24 characters long'
+                            'The row id must be between 1 and 200 characters long.'
+                        )
+                    }
+                    if (!row.title) {
+                        throw new Error(
+                            '"row.title" of an item is required in list of radio buttons.'
                         );
                     }
-                    if (!row.description || row.description.length > 72) {
+                    if (row.title.length > 24) {
                         throw new Error(
-                            '"row.description" of an item is required in list of radio buttons. It must be between 1 and 72 characters long.'
+                            'The row title must be between 1 and 24 characters long.'
                         );
+                    }
+                    if (!row.description) {
+                        throw new Error(
+                            '"row.description" of an item is required in list of radio buttons.'
+                        );
+                    }
+                    if (row.description.length > 72) {
+                        throw new Error(
+                            'The row description must be between 1 and 72 characters long.'
+                        )
                     }
 
                     totalNumberOfItems += 1;
