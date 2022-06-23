@@ -158,6 +158,7 @@ await Whatsapp.sendImage({
 // Send a video that is hosted on a public URL
 await Whatsapp.sendVideo({
     recipientPhone: 'your recipient phone number here',
+    caption: 'Test',
     url: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4',
 });
 
