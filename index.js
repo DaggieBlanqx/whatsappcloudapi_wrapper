@@ -455,6 +455,7 @@ class WhatsappCloud {
                 caption: caption || '',
             },
         };
+
         if (file_path) {
             let uploadedFile = await this._uploadMedia({
                 file_path,
@@ -462,9 +463,7 @@ class WhatsappCloud {
             });
             body['image']['id'] = uploadedFile.media_id;
         } else {
-            body['image'] = {
-                link: url,
-            };
+            body['image']['link'] = url;
         }
 
         let response = await this._fetchAssistant({
@@ -508,9 +507,7 @@ class WhatsappCloud {
             });
             body['video']['id'] = uploadedFile.media_id;
         } else {
-            body['video'] = {
-                link: url,
-            };
+            body['video']['link'] = url;
         }
 
         let response = await this._fetchAssistant({
@@ -555,9 +552,7 @@ class WhatsappCloud {
             });
             body['audio']['id'] = uploadedFile.media_id;
         } else {
-            body['audio'] = {
-                link: url,
-            };
+            body['audio']['link'] = url;
         }
 
         let response = await this._fetchAssistant({
