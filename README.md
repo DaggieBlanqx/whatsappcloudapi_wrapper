@@ -62,7 +62,7 @@ The <b>easiest</b>, most intuitive way for <b>businesses</b> and <b>developers</
         yarn add whatsappcloudapi_wrapper
 ```
 
-### Usage:
+# Usage:
 
 -   First import the package as follows:
 
@@ -79,6 +79,10 @@ const Whatsapp = new WhatsappCloudAPI({
     WABA_ID: 'Your Whatsapp Business Account id here',
 });
 ```
+
+
+## Part 1: Outbound messages (From business to customers)
+
 
 #### Send a free-formatted text message to a recipient:
 
@@ -403,11 +407,69 @@ await Whatsapp.markMessageAsRead({
 // A non-retryable error will be thrown if the message is not found or a message that has already been read.
 ```
 
+
+## Part 2: Inbound messages (From customers to business)
+
+
 #### Parse incoming messages:
 
 ```js
-Whatsapp.parseMessage(req.body);
+// req.body is what you receive from the webhook server.
+// remember to respond with HTTP 200 status at the end of the request
+let data = Whatsapp.parseMessage(req.body);
+/*
+Messages vs notifications 
+*/
 ```
+
+#### Handling a *SIMPLE* button click
+```js
+if (data?.isMessage) {
+    let incomingMessage = data.message;
+    let recipientPhone = incomingMessage.from.phone; // extract the phone number of sender
+    let recipientName = incomingMessage.from.name; // extract the name of the sender
+    let typeOfMsg = incomingMessage.type; // extract the type of message
+    let message_id = incomingMessage.message_id; // extract the message id
+
+    if (typeOfMsg === 'simple_button_message') {
+        let button_id = incomingMessage.button_reply.id;
+        if (button_id === 'book_appointment') {
+            
+            // The customer clicked on a button with an id of 'book_appointment'.
+
+            // You can respond to them with an outbound action eg, a text message           
+            await Whatsapp.sendText({
+                message: `Hello customer, You clicked on the 'book appointment' button`,
+                recipientPhone: 'your recipient phone number here',
+            });
+        };
+    };
+```
+
+
+#### Handling a *RADIO* button selection
+```js
+if (data?.isMessage) {
+    let incomingMessage = data.message;
+    let recipientPhone = incomingMessage.from.phone; // extract the phone number of sender
+    let recipientName = incomingMessage.from.name; // extract the name of the sender
+    let typeOfMsg = incomingMessage.type; // extract the type of message
+    let message_id = incomingMessage.message_id; // extract the message id
+
+    if (typeOfMsg === 'radio_button_message') {
+        let selectionId = incomingMessage.list_reply.id;
+        if (selectionId === 'morning_session') {
+            // The customer selected the radio button that has the id of 'morning_session'.
+            // You can respond to them with an outbound action eg, a text message           
+            await Whatsapp.sendText({
+                message: `You have selected the 'morning_session' option`,
+                recipientPhone: 'your recipient phone number here'
+            });
+        };
+    };	
+```
+
+
 
 ## Limitations:
 
