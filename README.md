@@ -435,8 +435,8 @@ Messages vs notifications
 ```js
 if (data?.isMessage) {
     let incomingMessage = data.message;
-    let recipientPhone = incomingMessage.from.phone; // extract the phone number of sender
-    let recipientName = incomingMessage.from.name; // extract the name of the sender
+    let recipientPhone = incomingMessage.from.phone; // extract the phone number of customer
+    let recipientName = incomingMessage.from.name; // extract the name of the customer
     let typeOfMsg = incomingMessage.type; // extract the type of message
     let message_id = incomingMessage.message_id; // extract the message id
 
@@ -459,8 +459,8 @@ if (data?.isMessage) {
 ```js
 if (data?.isMessage) {
     let incomingMessage = data.message;
-    let recipientPhone = incomingMessage.from.phone; // extract the phone number of sender
-    let recipientName = incomingMessage.from.name; // extract the name of the sender
+    let recipientPhone = incomingMessage.from.phone; // extract the phone number of customer
+    let recipientName = incomingMessage.from.name; // extract the name of the customer
     let typeOfMsg = incomingMessage.type; // extract the type of message
     let message_id = incomingMessage.message_id; // extract the message id
 
