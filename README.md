@@ -408,6 +408,15 @@ await Whatsapp.markMessageAsRead({
 ```
 
 
+#### Limitations in outbound actions:
+-   The button id must be between 1 and 256 characters long.
+-   The button title must be between 1 and 20 characters long.
+-   The list of items is limited to 10.
+-   The description of items in list must be between 1 and 72 characters long.
+-   The title of the list must be between 1 and 24 characters long.
+-   The id of the list must be between 1 and 200 characters long.
+
+
 ## Part 2: Inbound messages (From customers to business)
 
 
@@ -435,8 +444,7 @@ if (data?.isMessage) {
         let button_id = incomingMessage.button_reply.id;
         if (button_id === 'book_appointment') {
             
-            // The customer clicked on a button with an id of 'book_appointment'.
-
+            // The customer clicked on a simple button whose id is 'book_appointment'.
             // You can respond to them with an outbound action eg, a text message           
             await Whatsapp.sendText({
                 message: `Hello customer, You clicked on the 'book appointment' button`,
@@ -459,7 +467,7 @@ if (data?.isMessage) {
     if (typeOfMsg === 'radio_button_message') {
         let selectionId = incomingMessage.list_reply.id;
         if (selectionId === 'morning_session') {
-            // The customer selected the radio button that has the id of 'morning_session'.
+            // The customer selected the radio button whose id of 'morning_session'.
             // You can respond to them with an outbound action eg, a text message           
             await Whatsapp.sendText({
                 message: `You have selected the 'morning_session' option`,
@@ -469,16 +477,6 @@ if (data?.isMessage) {
     };	
 ```
 
-
-
-## Limitations:
-
--   The button id must be between 1 and 256 characters long.
--   The button title must be between 1 and 20 characters long.
--   The list of items is limited to 10.
--   The description of items in list must be between 1 and 72 characters long.
--   The title of the list must be between 1 and 24 characters long.
--   The id of the list must be between 1 and 200 characters long.
 
 ### Help information
 
