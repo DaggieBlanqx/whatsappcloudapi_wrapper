@@ -282,9 +282,7 @@ class WhatsappCloud {
         let validButtons = listOfButtons
             .map((button) => {
                 if (!button.title) {
-                    throw new Error(
-                        '"title" is required in making a request.'
-                    );
+                    throw new Error('"title" is required in making a request.');
                 }
                 if (button.title.length > 20) {
                     throw new Error(
@@ -292,9 +290,7 @@ class WhatsappCloud {
                     );
                 }
                 if (!button.id) {
-                    throw new Error(
-                        '"id" is required in making a request.'
-                    );
+                    throw new Error('"id" is required in making a request.');
                 }
                 if (button.id.length > 256) {
                     throw new Error(
@@ -367,10 +363,10 @@ class WhatsappCloud {
                             '"row.id" of an item is required in list of radio buttons.'
                         );
                     }
-                    if(row.id.length > 200) {
+                    if (row.id.length > 200) {
                         throw new Error(
                             'The row id must be between 1 and 200 characters long.'
-                        )
+                        );
                     }
                     if (!row.title) {
                         throw new Error(
@@ -390,7 +386,7 @@ class WhatsappCloud {
                     if (row.description.length > 72) {
                         throw new Error(
                             'The row description must be between 1 and 72 characters long.'
-                        )
+                        );
                     }
 
                     totalNumberOfItems += 1;

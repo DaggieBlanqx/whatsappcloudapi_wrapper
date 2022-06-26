@@ -80,9 +80,7 @@ const Whatsapp = new WhatsappCloudAPI({
 });
 ```
 
-
 ## Part 1: Outbound messages (From business to customers)
-
 
 #### Send a free-formatted text message to a recipient:
 
@@ -407,8 +405,8 @@ await Whatsapp.markMessageAsRead({
 // A non-retryable error will be thrown if the message is not found or a message that has already been read.
 ```
 
-
 #### Limitations in outbound actions:
+
 -   The button id must be between 1 and 256 characters long.
 -   The button title must be between 1 and 20 characters long.
 -   The list of items is limited to 10.
@@ -416,26 +414,27 @@ await Whatsapp.markMessageAsRead({
 -   The title of the list must be between 1 and 24 characters long.
 -   The id of the list must be between 1 and 200 characters long.
 
-
 ## Part 2: Inbound messages (From customers to business)
-
 
 #### Parse incoming messages:
 
 ```js
-// req.body is what you receive from the webhook server.
-// remember to respond with HTTP 200 status at the end of the request
+// req.body is the body of the request which ping the webhook. Invalid payloads will throw an error, and you shouldrespond with HTTP status 5** or 4**, not 200.
+// remember to respond with HTTP 200 status at the end of a succesful inbound request.
 let data = Whatsapp.parseMessage(req.body);
 /*
-Messages vs notifications 
+data.isMessage will be true if it is a message from a customer, it will be false otherwise.
+data.isNotification will be true if it is a notification from a Meta(e.g a message delivery/read status notification), it will be false otherwise.
+data will throw an error if the body of the webhook request is not valid or not from Meta.
 */
 ```
 
-#### Handling a *SIMPLE* button click
+#### Handling a _SIMPLE_ button click
+
 ```js
 if (data?.isMessage) {
     let incomingMessage = data.message;
-    let recipientPhone = incomingMessage.from.phone; // extract the phone number of customer
+    let recipientPhone = incomingMessage.from.phone; // extract the phone number of the customer
     let recipientName = incomingMessage.from.name; // extract the name of the customer
     let typeOfMsg = incomingMessage.type; // extract the type of message
     let message_id = incomingMessage.message_id; // extract the message id
@@ -443,9 +442,9 @@ if (data?.isMessage) {
     if (typeOfMsg === 'simple_button_message') {
         let button_id = incomingMessage.button_reply.id;
         if (button_id === 'book_appointment') {
-            
+
             // The customer clicked on a simple button whose id is 'book_appointment'.
-            // You can respond to them with an outbound action eg, a text message           
+            // You can respond to them with an outbound action eg, a text message
             await Whatsapp.sendText({
                 message: `Hello customer, You clicked on the 'book appointment' button`,
                 recipientPhone: 'your recipient phone number here',
@@ -454,12 +453,12 @@ if (data?.isMessage) {
     };
 ```
 
+#### Handling a _RADIO_ button selection
 
-#### Handling a *RADIO* button selection
 ```js
 if (data?.isMessage) {
     let incomingMessage = data.message;
-    let recipientPhone = incomingMessage.from.phone; // extract the phone number of customer
+    let recipientPhone = incomingMessage.from.phone; // extract the phone number of the customer
     let recipientName = incomingMessage.from.name; // extract the name of the customer
     let typeOfMsg = incomingMessage.type; // extract the type of message
     let message_id = incomingMessage.message_id; // extract the message id
@@ -468,15 +467,14 @@ if (data?.isMessage) {
         let selectionId = incomingMessage.list_reply.id;
         if (selectionId === 'morning_session') {
             // The customer selected the radio button whose id of 'morning_session'.
-            // You can respond to them with an outbound action eg, a text message           
+            // You can respond to them with an outbound action eg, a text message
             await Whatsapp.sendText({
                 message: `You have selected the 'morning_session' option`,
                 recipientPhone: 'your recipient phone number here'
             });
         };
-    };	
+    };
 ```
-
 
 ### Help information
 
