@@ -419,7 +419,7 @@ await Whatsapp.markMessageAsRead({
 #### Parse incoming messages:
 
 ```js
-// req.body is the body of the request which ping the webhook. Invalid payloads will throw an error, and you shouldrespond with HTTP status 5** or 4**, not 200.
+// req.body is the body of the request which ping the webhook. Invalid payloads will throw an error, and you should respond with HTTP status 5** or 4**, not 200.
 // remember to respond with HTTP 200 status at the end of a succesful inbound request.
 let data = Whatsapp.parseMessage(req.body);
 /*
