@@ -424,7 +424,7 @@ await Whatsapp.markMessageAsRead({
 let data = Whatsapp.parseMessage(req.body);
 /*
 data.isMessage will be true if it is a message from a customer, it will be false otherwise.
-data.isNotification will be true if it is a notification from a Meta(e.g a message delivery/read status notification), it will be false otherwise.
+data.isNotificationMessage will be true if it is a notification from a Meta(e.g a message delivery/read status notification), it will be false otherwise.
 data will throw an error if the body of the webhook request is not valid or not from Meta.
 */
 ```
