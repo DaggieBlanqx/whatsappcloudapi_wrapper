@@ -560,10 +560,7 @@ class WhatsappCloud {
             messaging_product: 'whatsapp',
             recipient_type: 'individual',
             to: recipientPhone,
-            type: 'audio',
-            audio: {
-                caption: caption || '',
-            },
+            type: 'audio'         
         };
         if (file_path) {
             let uploadedFile = await this._uploadMedia({
