@@ -312,10 +312,6 @@ class WhatsappCloud {
             })
             .filter(Boolean);
 
-        if (validButtons.length === 0) {
-            throw new Error('"listOfButtons" is required in making a request');
-        }
-
         let body = {
             messaging_product: 'whatsapp',
             recipient_type: 'individual',
