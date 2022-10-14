@@ -346,7 +346,9 @@ class WhatsappCloud {
         actionName
     }) {
         this._mustHaverecipientPhone(recipientPhone);
-
+        if(!actionName){
+            actionName = "Select a product"; //Default value
+        }
         if (!bodyText)
             throw new Error('"bodyText" is required in making a request');
         if (!headerText)
