@@ -279,6 +279,10 @@ class WhatsappCloud {
     async sendSimpleButtons({ recipientPhone, message, listOfButtons }) {
         this._mustHaveMessage(message);
         this._mustHaverecipientPhone(recipientPhone);
+        
+        if(!listOfButtons) throw new Error('listOfButtons cannot be empty');
+        if(listOfButtons.length > 3) throw new Error('listOfButtons cannot be bigger than 3 elements');
+        
         let validButtons = listOfButtons
             .map((button) => {
                 if (!button.title) {
@@ -307,10 +311,6 @@ class WhatsappCloud {
                 };
             })
             .filter(Boolean);
-
-        if (validButtons.length === 0) {
-            throw new Error('"listOfButtons" is required in making a request');
-        }
 
         let body = {
             messaging_product: 'whatsapp',
