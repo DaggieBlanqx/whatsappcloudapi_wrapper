@@ -57,9 +57,9 @@ class WhatsappCloud {
                     );
                 }
 
-                if (!headers) {
-                    signale.warn(`WARNING: "headers" is missing.`);
-                }
+//                 if (!headers) {
+//                     signale.warn(`WARNING: "headers" is missing.`);
+//                 }
 
                 if (method?.toUpperCase() === 'POST' && !body) {
                     signale.warn(
