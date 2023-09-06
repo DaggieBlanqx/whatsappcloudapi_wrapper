@@ -121,6 +121,21 @@ class WhatsappCloud {
             }
         };
 
+        this._mustHaveTemplateName = (templateName) => {
+            if (!templateName) {
+                throw new Error('"templateName" is required in making a request');
+            }
+        };
+        this._mustHaveComponents = (components) => {
+            if (!components) {
+                throw new Error('"components" is required in making a request');
+            }
+        };
+        this._mustHaveLanguageCode = (languageCode) => {
+            if (!languageCode) {
+                throw new Error('"languageCode" is required in making a request');
+            }
+        };
         this._mustHaveMessageId = (messageId) => {
             if (!messageId) {
                 throw new Error('"messageId" is required in making a request');
@@ -234,6 +249,34 @@ class WhatsappCloud {
                 preview_url: false,
                 body: message,
             },
+        };
+
+        let response = await this._fetchAssistant({
+            url: '/messages',
+            method: 'POST',
+            body,
+        });
+
+        return response;
+    }
+    async sendTemplate({ templateName,languageCode,components,recipientPhone }) {
+
+        this._mustHaverecipientPhone(recipientPhone);
+        this._mustHaveTemplateName(templateName);
+        this._mustHaveComponents(components)
+        this.languageCode(languageCode)
+        let body = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": recipientPhone,
+            "type": "template",
+            "template": {
+              "name": templateName,
+              "language": {
+                "code": languageCode
+              },
+              "components": components
+            }
         };
 
         let response = await this._fetchAssistant({
