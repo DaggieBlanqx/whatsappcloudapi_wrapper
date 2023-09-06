@@ -259,12 +259,11 @@ class WhatsappCloud {
 
         return response;
     }
-    async sendTemplate({ templateName,languageCode,components,recipientPhone }) {
-
+    async sendTemplate({templateName,languageCode,components,recipientPhone} ) {
         this._mustHaverecipientPhone(recipientPhone);
         this._mustHaveTemplateName(templateName);
         this._mustHaveComponents(components)
-        this.languageCode(languageCode)
+        this._mustHaveLanguageCode(languageCode)
         let body = {
             "messaging_product": "whatsapp",
             "recipient_type": "individual",
