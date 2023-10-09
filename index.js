@@ -236,7 +236,7 @@ class WhatsappCloud {
 
         return response;
     }
-    async sendText({ message, recipientPhone }) {
+    async sendText({ message, recipientPhone, showPreview }) {
         // to do: context is not working
 
         this._mustHaverecipientPhone(recipientPhone);
@@ -246,7 +246,7 @@ class WhatsappCloud {
             to: recipientPhone,
             type: 'text',
             text: {
-                preview_url: false,
+                preview_url: showPreview || false,
                 body: message,
             },
         };
