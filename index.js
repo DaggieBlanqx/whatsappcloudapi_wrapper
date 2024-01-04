@@ -395,6 +395,8 @@ class WhatsappCloud {
             throw new Error('"headerText" is required in making a request');
         if (!footerText)
             throw new Error('"footerText" is required in making a request');
+        if (!buttonText)
+            throw new Error('"buttonText" is required in making a request');
 
         let totalNumberOfItems = 0;
         let validSections = listOfSections
