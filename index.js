@@ -421,15 +421,12 @@ class WhatsappCloud {
                             'The row title must be between 1 and 24 characters long.'
                         );
                     }
-                    if (!row.description) {
-                        throw new Error(
-                            '"row.description" of an item is required in list of radio buttons.'
-                        );
-                    }
-                    if (row.description.length > 72) {
-                        throw new Error(
-                            'The row description must be between 1 and 72 characters long.'
-                        );
+                    if (row.description) {
+                        if (row.description.length > 72) {
+                            throw new Error(
+                                'The row description must be between 1 and 72 characters long.'
+                            );
+                        }
                     }
 
                     totalNumberOfItems += 1;
