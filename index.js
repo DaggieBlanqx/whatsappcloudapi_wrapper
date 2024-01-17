@@ -123,7 +123,9 @@ class WhatsappCloud {
 
         this._mustHaveTemplateName = (templateName) => {
             if (!templateName) {
-                throw new Error('"templateName" is required in making a request');
+                throw new Error(
+                    '"templateName" is required in making a request'
+                );
             }
         };
         this._mustHaveComponents = (components) => {
@@ -133,7 +135,9 @@ class WhatsappCloud {
         };
         this._mustHaveLanguageCode = (languageCode) => {
             if (!languageCode) {
-                throw new Error('"languageCode" is required in making a request');
+                throw new Error(
+                    '"languageCode" is required in making a request'
+                );
             }
         };
         this._mustHaveMessageId = (messageId) => {
@@ -259,23 +263,28 @@ class WhatsappCloud {
 
         return response;
     }
-    async sendTemplate({templateName,languageCode,components,recipientPhone} ) {
+    async sendTemplate({
+        templateName,
+        languageCode,
+        components,
+        recipientPhone,
+    }) {
         this._mustHaverecipientPhone(recipientPhone);
         this._mustHaveTemplateName(templateName);
-        this._mustHaveComponents(components)
-        this._mustHaveLanguageCode(languageCode)
+        this._mustHaveComponents(components);
+        this._mustHaveLanguageCode(languageCode);
         let body = {
-            "messaging_product": "whatsapp",
-            "recipient_type": "individual",
-            "to": recipientPhone,
-            "type": "template",
-            "template": {
-              "name": templateName,
-              "language": {
-                "code": languageCode
-              },
-              "components": components
-            }
+            messaging_product: 'whatsapp',
+            recipient_type: 'individual',
+            to: recipientPhone,
+            type: 'template',
+            template: {
+                name: templateName,
+                language: {
+                    code: languageCode,
+                },
+                components: components,
+            },
         };
 
         let response = await this._fetchAssistant({
@@ -321,10 +330,11 @@ class WhatsappCloud {
     async sendSimpleButtons({ recipientPhone, message, listOfButtons }) {
         this._mustHaveMessage(message);
         this._mustHaverecipientPhone(recipientPhone);
-        
-        if(!listOfButtons) throw new Error('listOfButtons cannot be empty');
-        if(listOfButtons.length > 3) throw new Error('listOfButtons cannot be bigger than 3 elements');
-        
+
+        if (!listOfButtons) throw new Error('listOfButtons cannot be empty');
+        if (listOfButtons.length > 3)
+            throw new Error('listOfButtons cannot be bigger than 3 elements');
+
         let validButtons = listOfButtons
             .map((button) => {
                 if (!button.title) {
@@ -895,7 +905,28 @@ class WhatsappCloud {
         return response;
     }
 
-    async sendSticker({ message, recipientPhone }) {}
+    async sendSticker({ message, recipientPhone, media_id }) {
+        this._mustHaverecipientPhone(recipientPhone);
+        this._mustHaveComponents(message);
+
+        let body = {
+            messaging_product: 'whatsapp',
+            recipient_type: 'individual',
+            to: recipientPhone,
+            type: 'sticker',
+            sticker: {
+                id: media_id,
+            },
+        };
+
+        let response = await this._fetchAssistant({
+            url: '/messages',
+            method: 'POST',
+            body,
+        });
+
+        return response;
+    }
 
     async getUserProfile({ recipientPhone }) {}
 
