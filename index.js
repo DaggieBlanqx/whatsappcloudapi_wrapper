@@ -260,9 +260,6 @@ class WhatsappCloud {
 
         return response;
     }
-    async sendResponse({ messagem, recipientPhone }) {
-        this
-    }
     async sendTemplate({templateName,languageCode,components,recipientPhone} ) {
         this._mustHaverecipientPhone(recipientPhone);
         this._mustHaveTemplateName(templateName);
