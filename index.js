@@ -236,9 +236,7 @@ class WhatsappCloud {
 
         return response;
     }
-    async sendText({ message, recipientPhone }) {
-        // to do: context is not working
-
+    async sendText({ message, recipientPhone, context }) {
         this._mustHaverecipientPhone(recipientPhone);
         this._mustHaveMessage(message);
         let body = {
@@ -250,6 +248,9 @@ class WhatsappCloud {
                 body: message,
             },
         };
+        if (context) {
+            body['context'] = context;
+        }
 
         let response = await this._fetchAssistant({
             url: '/messages',
@@ -286,6 +287,7 @@ class WhatsappCloud {
 
         return response;
     }
+    
 
     async markMessageAsRead({ message_id }) {
         try {
