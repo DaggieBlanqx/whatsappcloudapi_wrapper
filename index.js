@@ -386,6 +386,7 @@ class WhatsappCloud {
         headerText,
         bodyText,
         footerText,
+        buttonText,
         listOfSections,
     }) {
         this._mustHaverecipientPhone(recipientPhone);
@@ -396,6 +397,8 @@ class WhatsappCloud {
             throw new Error('"headerText" is required in making a request');
         if (!footerText)
             throw new Error('"footerText" is required in making a request');
+        if (!buttonText)
+            throw new Error('"buttonText" is required in making a request');
 
         let totalNumberOfItems = 0;
         let validSections = listOfSections
@@ -422,15 +425,12 @@ class WhatsappCloud {
                             'The row title must be between 1 and 24 characters long.'
                         );
                     }
-                    if (!row.description) {
-                        throw new Error(
-                            '"row.description" of an item is required in list of radio buttons.'
-                        );
-                    }
-                    if (row.description.length > 72) {
-                        throw new Error(
-                            'The row description must be between 1 and 72 characters long.'
-                        );
+                    if (row.description) {
+                        if (row.description.length > 72) {
+                            throw new Error(
+                                'The row description must be between 1 and 72 characters long.'
+                            );
+                        }
                     }
 
                     totalNumberOfItems += 1;
@@ -477,7 +477,7 @@ class WhatsappCloud {
                     text: footerText,
                 },
                 action: {
-                    button: 'Select a product',
+                    button: buttonText,
                     sections: validSections,
                 },
             },
