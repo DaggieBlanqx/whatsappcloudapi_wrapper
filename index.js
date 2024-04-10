@@ -387,6 +387,7 @@ class WhatsappCloud {
         bodyText,
         footerText,
         listOfSections,
+        actionTitle
     }) {
         this._mustHaverecipientPhone(recipientPhone);
 
@@ -396,6 +397,7 @@ class WhatsappCloud {
             throw new Error('"headerText" is required in making a request');
         if (!footerText)
             throw new Error('"footerText" is required in making a request');
+        
 
         let totalNumberOfItems = 0;
         let validSections = listOfSections
@@ -458,6 +460,11 @@ class WhatsappCloud {
                 'The total number of items in the rows must be equal or less than 10.'
             );
         }
+        if (actionTitle && actionTitle.length>20) {
+            throw new Error(
+                'Title should be less than 20 characters'
+            );
+        }
 
         let samples = {
             messaging_product: 'whatsapp',
@@ -477,7 +484,7 @@ class WhatsappCloud {
                     text: footerText,
                 },
                 action: {
-                    button: 'Select a product',
+                    button: actionTitle!= undefined? actionTitle:'Select a product',
                     sections: validSections,
                 },
             },
