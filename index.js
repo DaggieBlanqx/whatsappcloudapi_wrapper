@@ -57,7 +57,7 @@ class WhatsappCloud {
                     );
                 }
 
-                if (!headers) {
+                if (!headers && !defaultHeaders()) {
                     signale.warn(`WARNING: "headers" is missing.`);
                 }
 
