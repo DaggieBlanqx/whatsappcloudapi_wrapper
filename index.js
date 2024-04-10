@@ -123,7 +123,9 @@ class WhatsappCloud {
 
         this._mustHaveTemplateName = (templateName) => {
             if (!templateName) {
-                throw new Error('"templateName" is required in making a request');
+                throw new Error(
+                    '"templateName" is required in making a request'
+                );
             }
         };
         this._mustHaveComponents = (components) => {
@@ -133,7 +135,9 @@ class WhatsappCloud {
         };
         this._mustHaveLanguageCode = (languageCode) => {
             if (!languageCode) {
-                throw new Error('"languageCode" is required in making a request');
+                throw new Error(
+                    '"languageCode" is required in making a request'
+                );
             }
         };
         this._mustHaveMessageId = (messageId) => {
@@ -260,23 +264,28 @@ class WhatsappCloud {
 
         return response;
     }
-    async sendTemplate({templateName,languageCode,components,recipientPhone} ) {
+    async sendTemplate({
+        templateName,
+        languageCode,
+        components,
+        recipientPhone,
+    }) {
         this._mustHaverecipientPhone(recipientPhone);
         this._mustHaveTemplateName(templateName);
-        this._mustHaveComponents(components)
-        this._mustHaveLanguageCode(languageCode)
+        this._mustHaveComponents(components);
+        this._mustHaveLanguageCode(languageCode);
         let body = {
-            "messaging_product": "whatsapp",
-            "recipient_type": "individual",
-            "to": recipientPhone,
-            "type": "template",
-            "template": {
-              "name": templateName,
-              "language": {
-                "code": languageCode
-              },
-              "components": components
-            }
+            messaging_product: 'whatsapp',
+            recipient_type: 'individual',
+            to: recipientPhone,
+            type: 'template',
+            template: {
+                name: templateName,
+                language: {
+                    code: languageCode,
+                },
+                components: components,
+            },
         };
 
         let response = await this._fetchAssistant({
@@ -287,7 +296,6 @@ class WhatsappCloud {
 
         return response;
     }
-    
 
     async markMessageAsRead({ message_id }) {
         try {
@@ -323,10 +331,11 @@ class WhatsappCloud {
     async sendSimpleButtons({ recipientPhone, message, listOfButtons }) {
         this._mustHaveMessage(message);
         this._mustHaverecipientPhone(recipientPhone);
-        
-        if(!listOfButtons) throw new Error('listOfButtons cannot be empty');
-        if(listOfButtons.length > 3) throw new Error('listOfButtons cannot be bigger than 3 elements');
-        
+
+        if (!listOfButtons) throw new Error('listOfButtons cannot be empty');
+        if (listOfButtons.length > 3)
+            throw new Error('listOfButtons cannot be bigger than 3 elements');
+
         let validButtons = listOfButtons
             .map((button) => {
                 if (!button.title) {
@@ -387,7 +396,7 @@ class WhatsappCloud {
         bodyText,
         footerText,
         listOfSections,
-        actionTitle
+        actionTitle,
     }) {
         this._mustHaverecipientPhone(recipientPhone);
 
@@ -397,7 +406,6 @@ class WhatsappCloud {
             throw new Error('"headerText" is required in making a request');
         if (!footerText)
             throw new Error('"footerText" is required in making a request');
-        
 
         let totalNumberOfItems = 0;
         let validSections = listOfSections
@@ -460,10 +468,8 @@ class WhatsappCloud {
                 'The total number of items in the rows must be equal or less than 10.'
             );
         }
-        if (actionTitle && actionTitle.length>20) {
-            throw new Error(
-                'Title should be less than 20 characters'
-            );
+        if (actionTitle && actionTitle.length > 20) {
+            throw new Error('Title should be less than 20 characters');
         }
 
         let samples = {
@@ -484,7 +490,10 @@ class WhatsappCloud {
                     text: footerText,
                 },
                 action: {
-                    button: actionTitle!= undefined? actionTitle:'Select a product',
+                    button:
+                        actionTitle != undefined
+                            ? actionTitle
+                            : 'Select a product',
                     sections: validSections,
                 },
             },
