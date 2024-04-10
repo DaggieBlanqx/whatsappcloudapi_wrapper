@@ -225,6 +225,7 @@ await Whatsapp.sendRadioButtons({
     bodyText:
         'Daggie has some great products lined up for you based on your previous shopping history.\nPlease select one of the products below.',
     footerText: 'Approved by Daggie Blanqx',
+    actionName: 'Select a product', // if not provided, default value will be 'Select a product'
     listOfSections: [
         {
             title: 'Top 3 Fashion',

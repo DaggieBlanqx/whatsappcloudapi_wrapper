@@ -387,9 +387,13 @@ class WhatsappCloud {
         bodyText,
         footerText,
         listOfSections,
+        actionName
     }) {
         this._mustHaverecipientPhone(recipientPhone);
-
+        if(!actionName)
+            actionName = "Select a product"; //Default value
+        if (actionName.length > 20)
+            throw new Error('Action name should be less than 20 characters');
         if (!bodyText)
             throw new Error('"bodyText" is required in making a request');
         if (!headerText)
@@ -477,7 +481,7 @@ class WhatsappCloud {
                     text: footerText,
                 },
                 action: {
-                    button: 'Select a product',
+                    button: actionName,
                     sections: validSections,
                 },
             },
