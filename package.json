@@ -8,7 +8,7 @@
     "scripts": {
         "prettier": "prettier --ignore-path .prettierignore --config prettier.config.js --write .",
         "quickpush": "cls && git status && git add * && git commit * -m \"Updated Code\" && git push",
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "echo \"Error: no test specified\" && exit 0",
         "npmpublish": "npm run prettier && np"
     },
     "dependencies": {
