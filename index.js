@@ -514,12 +514,6 @@ class WhatsappCloud {
 
     async sendImage({ recipientPhone, caption, file_path, file_name, url }) {
         this._mustHaverecipientPhone(recipientPhone);
-        if (file_path && url) {
-            throw new Error(
-                'You can only send an image in your "file_path" or an image in a publicly available "url". Provide either "file_path" or "url".'
-            );
-        }
-
         if (!file_path && !url) {
             throw new Error(
                 'You must send an image in your "file_path" or an image in a publicly available "url". Provide either "file_path" or "url".'
@@ -911,7 +905,39 @@ class WhatsappCloud {
         return response;
     }
 
-    async sendSticker({ message, recipientPhone }) {}
+    async sendSticker({ recipientPhone, caption, file_path, file_name, url }) {
+        this._mustHaverecipientPhone(recipientPhone);
+        if (!file_path && !url) {
+            throw new Error('You must provide a sticker in your "file_path" or a sticker in a publicly available "url"');
+        }
+
+        let body = {
+            messaging_product: 'whatsapp',
+            recipient_type: 'individual',
+            to: recipientPhone,
+            type: 'sticker',
+            sticker: {
+                caption: caption || "",
+            }
+        };
+        if (file_path) {
+            let uploadedSticker = await this._uploadMedia({
+                file_path,
+                file_name,
+            });
+            body['sticker']['id'] = uploadedSticker.media_id;
+        } else {
+            body['sticker']['link'] = url;
+        }
+
+        let response = await this._fetchAssistant({
+            url: '/messages',
+            method: 'POST',
+            body,
+        });
+
+        return response;
+    }
 
     async getUserProfile({ recipientPhone }) {}
 
