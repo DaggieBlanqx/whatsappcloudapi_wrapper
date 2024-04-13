@@ -57,9 +57,9 @@ class WhatsappCloud {
                     );
                 }
 
-//                 if (!headers) {
-//                     signale.warn(`WARNING: "headers" is missing.`);
-//                 }
+                if (!headers && !defaultHeaders()) {
+                    signale.warn(`WARNING: "headers" is missing.`);
+                }
 
                 if (method?.toUpperCase() === 'POST' && !body) {
                     signale.warn(
@@ -121,6 +121,25 @@ class WhatsappCloud {
             }
         };
 
+        this._mustHaveTemplateName = (templateName) => {
+            if (!templateName) {
+                throw new Error(
+                    '"templateName" is required in making a request'
+                );
+            }
+        };
+        this._mustHaveComponents = (components) => {
+            if (!components) {
+                throw new Error('"components" is required in making a request');
+            }
+        };
+        this._mustHaveLanguageCode = (languageCode) => {
+            if (!languageCode) {
+                throw new Error(
+                    '"languageCode" is required in making a request'
+                );
+            }
+        };
         this._mustHaveMessageId = (messageId) => {
             if (!messageId) {
                 throw new Error('"messageId" is required in making a request');
@@ -221,9 +240,7 @@ class WhatsappCloud {
 
         return response;
     }
-    async sendText({ message, recipientPhone }) {
-        // to do: context is not working
-
+    async sendText({ message, recipientPhone, context }) {
         this._mustHaverecipientPhone(recipientPhone);
         this._mustHaveMessage(message);
         let body = {
@@ -233,6 +250,41 @@ class WhatsappCloud {
             text: {
                 preview_url: false,
                 body: message,
+            },
+        };
+        if (context) {
+            body['context'] = context;
+        }
+
+        let response = await this._fetchAssistant({
+            url: '/messages',
+            method: 'POST',
+            body,
+        });
+
+        return response;
+    }
+    async sendTemplate({
+        templateName,
+        languageCode,
+        components,
+        recipientPhone,
+    }) {
+        this._mustHaverecipientPhone(recipientPhone);
+        this._mustHaveTemplateName(templateName);
+        this._mustHaveComponents(components);
+        this._mustHaveLanguageCode(languageCode);
+        let body = {
+            messaging_product: 'whatsapp',
+            recipient_type: 'individual',
+            to: recipientPhone,
+            type: 'template',
+            template: {
+                name: templateName,
+                language: {
+                    code: languageCode,
+                },
+                components: components,
             },
         };
 
@@ -279,10 +331,11 @@ class WhatsappCloud {
     async sendSimpleButtons({ recipientPhone, message, listOfButtons }) {
         this._mustHaveMessage(message);
         this._mustHaverecipientPhone(recipientPhone);
-        
-        if(!listOfButtons) throw new Error('listOfButtons cannot be empty');
-        if(listOfButtons.length > 3) throw new Error('listOfButtons cannot be bigger than 3 elements');
-        
+
+        if (!listOfButtons) throw new Error('listOfButtons cannot be empty');
+        if (listOfButtons.length > 3)
+            throw new Error('listOfButtons cannot be bigger than 3 elements');
+
         let validButtons = listOfButtons
             .map((button) => {
                 if (!button.title) {
@@ -343,6 +396,7 @@ class WhatsappCloud {
         bodyText,
         footerText,
         listOfSections,
+        actionTitle,
     }) {
         this._mustHaverecipientPhone(recipientPhone);
 
@@ -414,6 +468,9 @@ class WhatsappCloud {
                 'The total number of items in the rows must be equal or less than 10.'
             );
         }
+        if (actionTitle && actionTitle.length > 20) {
+            throw new Error('Title should be less than 20 characters');
+        }
 
         let samples = {
             messaging_product: 'whatsapp',
@@ -433,7 +490,10 @@ class WhatsappCloud {
                     text: footerText,
                 },
                 action: {
-                    button: 'Select a product',
+                    button:
+                        actionTitle != undefined
+                            ? actionTitle
+                            : 'Select a product',
                     sections: validSections,
                 },
             },
@@ -561,9 +621,7 @@ class WhatsappCloud {
             recipient_type: 'individual',
             to: recipientPhone,
             type: 'audio',
-            audio: {
-                caption: caption || '',
-            },
+            audio: {},
         };
         if (file_path) {
             let uploadedFile = await this._uploadMedia({

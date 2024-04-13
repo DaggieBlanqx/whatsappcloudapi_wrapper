@@ -89,7 +89,7 @@ module.exports = ({ requestBody, currentWABA_ID }) => {
         } else if (message.type === 'text') {
             msgType = 'text_message';
         } else if (message.type === 'audio') {
-            msgType = 'audio_message';            
+            msgType = 'audio_message';
         } else if (message.type === 'sticker') {
             msgType = 'sticker_message';
         } else if (message.type === 'image') {

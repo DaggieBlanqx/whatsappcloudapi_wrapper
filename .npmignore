@@ -120,3 +120,6 @@ package-lock.json
 .errors
 .samples.js
 .samples.js.txt
+
+# Ignore github actions
+.github/
