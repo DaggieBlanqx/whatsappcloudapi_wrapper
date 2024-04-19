@@ -2,7 +2,19 @@
 const unirest = require('unirest');
 const signale = require('signale');
 const fs = require('fs');
+const request = require('request');
 const messageParser = require('./msg_parser.js');
+const { Readable } = require('stream');
+
+// check if file exists
+const fileExists = ({ path }) => {
+    try {
+        fs.accessSync(path, fs.constants.F_OK);
+        return true;
+    } catch (err) {
+        return false;
+    }
+};
 
 class WhatsappCloud {
     constructor({
@@ -146,33 +158,6 @@ class WhatsappCloud {
             }
         };
 
-        this._uploadMedia = async ({ file_path, file_name }) => {
-            return new Promise((resolve, reject) => {
-                const mediaFile = fs.createReadStream(file_path);
-                // type = type || 'image';
-                unirest(
-                    'POST',
-                    `https://graph.facebook.com/${this.graphAPIVersion}/${this.senderPhoneNumberId}/media`
-                )
-                    .headers({
-                        Authorization: `Bearer ${this.accessToken}`,
-                    })
-                    .field('messaging_product', 'whatsapp')
-                    .attach('file', mediaFile)
-                    .end((res) => {
-                        if (res.error) {
-                            reject(res.error);
-                        } else {
-                            let response = JSON.parse(res.raw_body);
-                            resolve({
-                                status: 'success',
-                                media_id: response.id,
-                                file_name: file_name || null,
-                            });
-                        }
-                    });
-            });
-        };
         this._retrieveMediaUrl = async ({ media_id }) => {
             const response = await this._fetchAssistant({
                 baseUrl: `https://graph.facebook.com/${this.graphAPIVersion}`,
@@ -512,17 +497,42 @@ class WhatsappCloud {
         return response;
     }
 
-    async sendImage({ recipientPhone, caption, file_path, file_name, url }) {
+    async sendImage({
+        recipientPhone,
+        caption,
+        file_path,
+        file_name,
+        url,
+        media_id,
+        mime_type,
+    }) {
         this._mustHaverecipientPhone(recipientPhone);
-        if (file_path && url) {
+        const hasFileAndUrl = file_path && url;
+        const hasMediaIdAndFile = media_id && file_path;
+        const hasMediaIdAndUrl = media_id && url;
+        const lacksAll = !file_path && !url && !media_id;
+
+        if (hasFileAndUrl) {
             throw new Error(
                 'You can only send an image in your "file_path" or an image in a publicly available "url". Provide either "file_path" or "url".'
             );
         }
 
-        if (!file_path && !url) {
+        if (hasMediaIdAndFile) {
             throw new Error(
-                'You must send an image in your "file_path" or an image in a publicly available "url". Provide either "file_path" or "url".'
+                'You can only send an image using a media_id or a file_path. Provide either "media_id" or "file_path".'
+            );
+        }
+
+        if (hasMediaIdAndUrl) {
+            throw new Error(
+                'You can only send an image using a media_id or a url. Provide either "media_id" or "url".'
+            );
+        }
+
+        if (lacksAll) {
+            throw new Error(
+                'You must have either an image in your "file_path" or an image in a publicly available "url", or a previously uploaded "media_id". Provide either "file_path" or "url" or "media_id".'
             );
         }
 
@@ -536,12 +546,15 @@ class WhatsappCloud {
             },
         };
 
-        if (file_path) {
-            let uploadedFile = await this._uploadMedia({
+        if (media_id) {
+            body['image']['id'] = media_id;
+        } else if (file_path) {
+            let uploadedFile = await this.preUploadMedia({
                 file_path,
                 file_name,
+                mime_type,
             });
-            body['image']['id'] = uploadedFile.media_id;
+            body['image']['id'] = Number(uploadedFile.media_id);
         } else {
             body['image']['link'] = url;
         }
@@ -557,7 +570,15 @@ class WhatsappCloud {
             body,
         };
     }
-    async sendVideo({ recipientPhone, caption, file_path, file_name, url }) {
+
+    async sendVideo({
+        recipientPhone,
+        caption,
+        file_path,
+        file_name,
+        url,
+        mime_type,
+    }) {
         this._mustHaverecipientPhone(recipientPhone);
         if (file_path && url) {
             throw new Error(
@@ -581,9 +602,10 @@ class WhatsappCloud {
             },
         };
         if (file_path) {
-            let uploadedFile = await this._uploadMedia({
+            let uploadedFile = await this.preUploadMedia({
                 file_path,
                 file_name,
+                mime_type,
             });
             body['video']['id'] = uploadedFile.media_id;
         } else {
@@ -602,7 +624,14 @@ class WhatsappCloud {
         };
     }
 
-    async sendAudio({ recipientPhone, caption, file_path, file_name, url }) {
+    async sendAudio({
+        recipientPhone,
+        caption,
+        file_path,
+        file_name,
+        url,
+        mime_type,
+    }) {
         this._mustHaverecipientPhone(recipientPhone);
         if (file_path && url) {
             throw new Error(
@@ -624,9 +653,10 @@ class WhatsappCloud {
             audio: {},
         };
         if (file_path) {
-            let uploadedFile = await this._uploadMedia({
+            let uploadedFile = await this.preUploadMedia({
                 file_path,
                 file_name,
+                mime_type,
             });
             body['audio']['id'] = uploadedFile.media_id;
         } else {
@@ -645,7 +675,7 @@ class WhatsappCloud {
         };
     }
 
-    async sendDocument({ recipientPhone, caption, file_path, url }) {
+    async sendDocument({ recipientPhone, caption, file_path, url, mime_type }) {
         this._mustHaverecipientPhone(recipientPhone);
         if (file_path && url) {
             throw new Error(
@@ -674,9 +704,10 @@ class WhatsappCloud {
         };
 
         if (file_path) {
-            let uploadedFile = await this._uploadMedia({
+            let uploadedFile = await this.preUploadMedia({
                 file_path,
                 file_name: caption,
+                mime_type,
             });
             body['document']['id'] = uploadedFile.media_id;
             body['document']['filename'] = uploadedFile.file_name || '';
@@ -920,6 +951,87 @@ class WhatsappCloud {
     async getUserProfilePicture({ recipientPhone }) {}
 
     async getUserStatusPicture({ recipientPhone }) {}
+
+    async preUploadMedia({ file_path, file_name, file_buffer, mime_type }) {
+        return new Promise((resolve, reject) => {
+            let fileStream;
+
+            if (!file_path && !file_buffer) {
+                return reject({
+                    status: 'failed',
+                    error: 'You must provide either a file_path or a file_buffer.',
+                });
+            }
+
+            if (file_path) {
+                if (!fileExists({ path: file_path })) {
+                    return reject({
+                        status: 'failed',
+                        error: 'The file_path does not exist.',
+                    });
+                } else {
+                    fileStream = fs.createReadStream(file_path);
+                }
+            }
+
+            if (file_buffer) {
+                if (!Buffer.isBuffer(file_buffer)) {
+                    return reject({
+                        status: 'failed',
+                        error: 'The file_buffer is not a buffer.',
+                    });
+                } else {
+                    // Convert buffer to a readable stream
+                    fileStream = new Readable();
+                    fileStream.push(file_buffer);
+                    fileStream.push(null); // Signal the end of the stream
+                }
+            }
+
+            if (!mime_type) {
+                throw new Error('You must provide a "mime_type".');
+            }
+
+            const url = `https://graph.facebook.com/${this.graphAPIVersion}/${this.senderPhoneNumberId}/media`;
+
+            const options = {
+                method: 'POST',
+                url,
+                headers: {
+                    Authorization: `Bearer ${this.accessToken}`,
+                },
+                formData: {
+                    messaging_product: 'whatsapp',
+                    type: mime_type,
+                    file: {
+                        value: fileStream,
+                        options: {
+                            filename: file_name,
+                            contentType: null,
+                        },
+                    },
+                },
+            };
+
+            request(options, function (error, response) {
+                if (error) {
+                    reject({
+                        status: 'failed',
+                        error,
+                    });
+                } else {
+                    const data = JSON.parse(response.body);
+                    const media_id = data.id;
+
+                    resolve({
+                        status: 'success',
+                        media_id,
+                        file_name: file_name || null,
+                    });
+                }
+            });
+        });
+    }
 
     parseMessage(requestBody) {
         return messageParser({ requestBody, currentWABA_ID: this.WABA_ID });

@@ -1,33 +1,37 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
-
-name: Node.js Package
+name: Publish to NPM
 
 on:
-    release:
-        types: [created]
+  push:
+    branches:
+      - main
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: 16
-            - run: npm ci
-            - run: npm test
+  test:
+    runs-on: ubuntu-latest
+    environment: Staging Environment
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm i
+      - run: npm test
+        env:
+          accessToken: ${{secrets.accessToken}}
+          graphAPIVersion: ${{secrets.graphAPIVersion}}
+          senderPhoneNumberId: ${{secrets.senderPhoneNumberId}}
+          WABA_ID: ${{secrets.WABA_ID}}
 
-    publish-npm:
-        needs: build
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: 16
-                  registry-url: https://registry.npmjs.org/
-            - run: npm ci
-            - run: npm publish
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+  publish-npm:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+      - run: npm i
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_IN_GITHUB_ACTIONS}}

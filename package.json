@@ -8,10 +8,11 @@
     "scripts": {
         "prettier": "prettier --ignore-path .prettierignore --config prettier.config.js --write .",
         "quickpush": "cls && git status && git add * && git commit * -m \"Updated Code\" && git push",
-        "test": "echo \"Error: no test specified\" && exit 0",
+        "test": "PACKAGE_VERSION=$npm_package_version echo \"Error: no test specified\" && exit 0",
         "npmpublish": "npm run prettier && np"
     },
     "dependencies": {
+        "request": "^2.88.2",
         "signale": "^1.4.0",
         "unirest": "^0.6.0"
     },
