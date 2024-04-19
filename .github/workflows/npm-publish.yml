@@ -17,9 +17,9 @@ jobs:
       - run: npm i
       - run: npm test
         env:
-          accessToken: ${{secrets.accessToken}}
-          graphAPIVersion: ${{secrets.graphAPIVersion}}
-          senderPhoneNumberId: ${{secrets.senderPhoneNumberId}}
+          accessToken: ${{secrets.ACCESSTOKEN}}
+          graphAPIVersion: ${{secrets.GRAPHAPIVERSION}}
+          senderPhoneNumberId: ${{secrets.SENDERPHONENUMBERID}}
           WABA_ID: ${{secrets.WABA_ID}}
 
   publish-npm:
