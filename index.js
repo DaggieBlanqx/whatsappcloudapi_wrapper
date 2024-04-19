@@ -921,8 +921,15 @@ class WhatsappCloud {
 
     async getUserStatusPicture({ recipientPhone }) {}
 
-    parseMessage(requestBody) {
-        return messageParser({ requestBody, currentWABA_ID: this.WABA_ID });
+    parseMessage(requestBody, customWABA_ID) {
+        if (
+            customWABA_ID === undefined ||
+            customWABA_ID === null ||
+            !customWABA_ID
+        ) {
+            return this.WABA_ID;
+        }
+        return messageParser({ requestBody, currentWABA_ID: customWABA_ID });
     }
 }
 module.exports = WhatsappCloud;
