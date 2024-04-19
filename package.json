@@ -12,6 +12,7 @@
         "npmpublish": "npm run prettier && np"
     },
     "dependencies": {
+        "request": "^2.88.2",
         "signale": "^1.4.0",
         "unirest": "^0.6.0"
     },
