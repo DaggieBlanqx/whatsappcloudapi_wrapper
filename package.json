@@ -1,6 +1,6 @@
 {
     "name": "whatsappcloudapi_wrapper",
-    "version": "1.0.15",
+    "version": "1.0.16",
     "description": "Tired of doing things wrong? This package provides you with an easy way to get started and start building on the Whatsapp Cloud API. This is an unofficial wrapper for the Whatsapp Cloud API.",
     "main": "index.js",
     "author": "Daggie Blanqx",
