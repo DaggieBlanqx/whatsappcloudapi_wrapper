@@ -943,7 +943,28 @@ class WhatsappCloud {
         return response;
     }
 
-    async sendSticker({ message, recipientPhone }) {}
+    async sendSticker({ message, recipientPhone, media_id }) {
+        this._mustHaverecipientPhone(recipientPhone);
+        this._mustHaveComponents(message);
+
+        let body = {
+            messaging_product: 'whatsapp',
+            recipient_type: 'individual',
+            to: recipientPhone,
+            type: 'sticker',
+            sticker: {
+                id: media_id,
+            },
+        };
+
+        let response = await this._fetchAssistant({
+            url: '/messages',
+            method: 'POST',
+            body,
+        });
+
+        return response;
+    }
 
     async getUserProfile({ recipientPhone }) {}
 
