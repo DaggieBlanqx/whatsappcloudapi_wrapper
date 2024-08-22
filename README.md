@@ -448,7 +448,8 @@ if (data?.isMessage) {
             await Whatsapp.sendText({
                 message: `Hello customer, You clicked on the 'book appointment' button`,
                 recipientPhone: 'your recipient phone number here',
-            });
+                });
+            };
         };
     };
 ```
@@ -471,7 +472,8 @@ if (data?.isMessage) {
             await Whatsapp.sendText({
                 message: `You have selected the 'morning_session' option`,
                 recipientPhone: 'your recipient phone number here'
-            });
+                });
+            };
         };
     };
 ```
