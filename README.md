@@ -379,6 +379,20 @@ await Whatsapp.sendContact({
 });
 ```
 
+#### Send stickers to the recipient
+
+```js
+await Whatsapp.sendSimpleButtons({
+    recipientPhone: 'your recipient phone number here',
+    message: `How may I help you today`,
+    sticker: [
+        {
+            id: 'banana_12',
+        },
+    ],
+});
+```
+
 ##### Generate a QR code which can be scanned by a recipient:
 
 ```js
