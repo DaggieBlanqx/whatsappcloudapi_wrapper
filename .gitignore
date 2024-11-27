@@ -110,6 +110,7 @@ sw.*
 client_secret.json
 yarn.lock
 *.lock
+*lock*
 package-lock.json
 *.zip
 
@@ -119,3 +120,6 @@ package-lock.json
 .index.js
 .errors
 experiments/
+
+#exclude playground
+playground/

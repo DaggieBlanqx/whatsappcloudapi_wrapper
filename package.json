@@ -14,7 +14,8 @@
     "dependencies": {
         "request": "^2.88.2",
         "signale": "^1.4.0",
-        "unirest": "^0.6.0"
+        "unirest": "^0.6.0",
+        "zod": "^3.22.4"
     },
     "keywords": [
         "whatsapp",
@@ -45,5 +46,8 @@
     "homepage": "https://github.com/daggieblanqx/whatsappcloudapi_wrapper#readme",
     "engines": {
         "node": ">=10"
+    },
+    "devDependencies": {
+        "typescript": "^5.2.2"
     }
 }
